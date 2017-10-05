@@ -1,0 +1,8 @@
+C:\Users\Onshore\source\repos\RPGame C-sharp\DataAccess\bin\Debug\netstandard1.4\DataAccess.deps.json
+C:\Users\Onshore\source\repos\RPGame C-sharp\DataAccess\obj\Debug\netstandard1.4\DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\Onshore\source\repos\RPGame C-sharp\DataAccess\obj\Debug\netstandard1.4\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Onshore\source\repos\RPGame C-sharp\DataAccess\obj\Debug\netstandard1.4\DataAccess.AssemblyInfo.cs
+C:\Users\Onshore\source\repos\RPGame C-sharp\DataAccess\bin\Debug\netstandard1.4\DataAccess.dll
+C:\Users\Onshore\source\repos\RPGame C-sharp\DataAccess\bin\Debug\netstandard1.4\DataAccess.pdb
+C:\Users\Onshore\source\repos\RPGame C-sharp\DataAccess\obj\Debug\netstandard1.4\DataAccess.dll
+C:\Users\Onshore\source\repos\RPGame C-sharp\DataAccess\obj\Debug\netstandard1.4\DataAccess.pdb

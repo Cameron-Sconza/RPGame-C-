@@ -1,0 +1,10 @@
+C:\Users\Onshore\source\repos\RPGame C-sharp\BusinessLogic\bin\Debug\netstandard1.4\BusinessLogic.deps.json
+C:\Users\Onshore\source\repos\RPGame C-sharp\BusinessLogic\obj\Debug\netstandard1.4\BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\Onshore\source\repos\RPGame C-sharp\BusinessLogic\obj\Debug\netstandard1.4\BusinessLogic.AssemblyInfo.cs
+C:\Users\Onshore\source\repos\RPGame C-sharp\BusinessLogic\bin\Debug\netstandard1.4\BusinessLogic.dll
+C:\Users\Onshore\source\repos\RPGame C-sharp\BusinessLogic\bin\Debug\netstandard1.4\BusinessLogic.pdb
+C:\Users\Onshore\source\repos\RPGame C-sharp\BusinessLogic\bin\Debug\netstandard1.4\DataAccess.dll
+C:\Users\Onshore\source\repos\RPGame C-sharp\BusinessLogic\bin\Debug\netstandard1.4\DataAccess.pdb
+C:\Users\Onshore\source\repos\RPGame C-sharp\BusinessLogic\obj\Debug\netstandard1.4\BusinessLogic.csprojResolveAssemblyReference.cache
+C:\Users\Onshore\source\repos\RPGame C-sharp\BusinessLogic\obj\Debug\netstandard1.4\BusinessLogic.dll
+C:\Users\Onshore\source\repos\RPGame C-sharp\BusinessLogic\obj\Debug\netstandard1.4\BusinessLogic.pdb
