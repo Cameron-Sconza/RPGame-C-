@@ -62,7 +62,7 @@ namespace RPGame_C_sharp
         {
             Character character = new Character();
             Console.Write("Welcome to Character Creation.\nWhat is Your Name Going to Be?\n");
-            character.name = Console.ReadLine();
+            character.Name = Console.ReadLine();
 
         }
 
