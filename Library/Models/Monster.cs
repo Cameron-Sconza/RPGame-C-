@@ -10,6 +10,6 @@ namespace Library.Models
         public double MaxHealthPoints { get; set; }
         public double Attack { get; set; }
         public double Defence { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } // ID
     }
 }

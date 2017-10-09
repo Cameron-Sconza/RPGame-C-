@@ -5,6 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.Models;
 using System.IO;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.XmlConfiguration;
+using System.Xml.Serialization;
+using System.Xml.XPath;
+
 
 namespace DataAccess
 {
@@ -21,6 +27,10 @@ namespace DataAccess
                 contents = reader.ReadToEnd().Split('\n').ToList();
                 reader.Close();
             }
+            if(contents.Count < 11)
+            {
+                return null;
+            }
             character.Name = contents[0];
             character.CharacterClass = contents[1];
             character.ArmourID = contents[2];
@@ -36,6 +46,38 @@ namespace DataAccess
             character.NextLevelExp = int.Parse(contents[12]);
             character.Backpack = contents.GetRange(13, (contents.Count - 1));
             return character;
+        }
+
+        public void SaveGameXML(Character character)
+        {
+            XmlWriterSettings xmlWriterSettings = new XmlWriterSettings { Indent = true };
+            XmlWriter xmlWriter = XmlWriter.Create(filePath + "Save.xml");
+            xmlWriter.WriteStartDocument();
+            xmlWriter.WriteStartElement("Character");
+            xmlWriter.WriteElementString("Name", character.Name);
+            xmlWriter.WriteElementString("CharacterClass", character.CharacterClass);
+            xmlWriter.WriteElementString("ArmourID", character.ArmourID);
+            xmlWriter.WriteElementString("OffHandID", character.OffHandID);
+            xmlWriter.WriteElementString("MainHandID", character.MainHandID);
+            xmlWriter.WriteElementString("Strength", character.Strength.ToString());
+            xmlWriter.WriteElementString("Dexterity", character.Dexterity.ToString());
+            xmlWriter.WriteElementString("Constitution", character.Constitution.ToString());
+            xmlWriter.WriteElementString("Intellegence", character.Intellegence.ToString());
+            xmlWriter.WriteElementString("Gold", character.Gold.ToString());
+            xmlWriter.WriteElementString("Level", character.Level.ToString());
+            xmlWriter.WriteElementString("CurrentExp", character.CurrentExp.ToString());
+            xmlWriter.WriteElementString("NextLevelExp", character.NextLevelExp.ToString());
+            xmlWriter.WriteStartElement("Backpack");
+            if (character.Backpack != null || character.Backpack.Count == 0)
+            {
+                foreach (var item in character.Backpack)
+                {
+                    xmlWriter.WriteElementString("item", item);
+                }
+            }
+            xmlWriter.WriteEndElement();
+            xmlWriter.WriteEndElement();
+            xmlWriter.WriteEndDocument();
         }
 
         public void SaveGame(Character character)

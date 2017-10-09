@@ -12,7 +12,7 @@ namespace Library.Models
         public int Constitution { get; set; }
         public int Intellegence { get; set; }
         public int Gold { get; set; }
-        public int CurrentExp { get; set; }
+        public double CurrentExp { get; set; }
         public double Attack { get; set; }
         public double Defence { get; set; }
         public double NextLevelExp { get; set; }
@@ -20,7 +20,7 @@ namespace Library.Models
         public double MaxHealthPoints { get; set; }
         public string Name { get; set; }
         public string CharacterClass { get; set; }
-        public List<string> Backpack { get; set; }
+        public List<string> Backpack { get; set; } //ItemIDs
         public string MainHandID { get; set; }
         public string OffHandID { get; set;}
         public string ArmourID { get; set;}

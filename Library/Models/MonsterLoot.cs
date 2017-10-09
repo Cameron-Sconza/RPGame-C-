@@ -11,5 +11,7 @@ namespace Library.Models
         public string ItemDropTwoID { get; set; }
         public string ItemDropThreeID { get; set; }
         public string ItemDropFourID { get; set; }
+        public int GoldDrop { get; set; }
+        public double ExpGain { get; set; }
     }
 }

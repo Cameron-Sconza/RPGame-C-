@@ -8,35 +8,51 @@ namespace BusinessLogic
 {
     public class Logic
     {
-        static Data data;
-        static Random random;
-
-        public Logic(Data D) => data = D;
-
+        public static Data data = new Data();
         public Character LoadGame()
         {
             Character character = data.LoadGame();
-            if (character.CharacterClass == "Rogue")
+            if (character == null)
             {
-                character.Attack = Math.Ceiling(a: (((character.Dexterity * 2) / 3) + (character.Strength * 0.5) + 2));
+                return null;
             }
-            else if (character.CharacterClass == "Warrior")
-            {
-                character.Attack = Math.Ceiling(a: (((character.Strength * 2) / 3) + (character.Dexterity * 0.5) + 3));
-            }
-            else if (character.CharacterClass == "Wizard")
-            {
-                character.Attack = Math.Ceiling(a: (((character.Intellegence * 2) / 3) + 2));
-            }
-            character.Defence = Math.Ceiling(a: (((character.Strength + character.Dexterity) / 1.5) + 2));
-            character.MaxHealthPoints = Math.Ceiling(a: ((((character.Level * character.Strength + (character.Dexterity * character.Level) / 3)) / 2) + 20));
+            character.Attack = CalculateAttack(character.Strength, character.Dexterity, character.Intellegence, character.CharacterClass);
+            character.Defence = CalculateDefence(character.Strength, character.Dexterity);
+            character.MaxHealthPoints = CalculateMaxHealthPoints(character.Level, character.Strength, character.Dexterity, character.Constitution);
             character.CurrentHealthPoints = character.MaxHealthPoints;
             return character;
         }
 
+        public double CalculateAttack(int strength, int dexterity, int intellegence, string characterClass)
+        {
+            if (characterClass == "Rogue")
+            {
+                return Math.Ceiling(a: (((dexterity * 2) / 3) + (strength * 0.5) + 2));
+            }
+            else if (characterClass == "Warrior")
+            {
+                return Math.Ceiling(a: (((strength * 2) / 3) + (dexterity * 0.5) + 3));
+            }
+            else if (characterClass == "Wizard")
+            {
+                return Math.Ceiling(a: (((intellegence * 2) / 3) + 2));
+            }
+            else { return 0; }
+        }
+
+        public double CalculateDefence(int strength, int dexterity)
+        {
+            return Math.Ceiling(a: (((strength + dexterity) / 1.5) + 2));
+        }
+
+        public double CalculateMaxHealthPoints(int level, int strength, int dexterity, int constitution)
+        {
+            return Math.Ceiling(a: ((((level * strength + (dexterity * level) / 3)) / 2) + (4 * constitution)));
+        }
+
         public void SaveGame(Character character)
         {
-            data.SaveGame(character);
+            data.SaveGameXML(character);
         }
 
         public double Damage(double dealerAttack, double recieverDefence, bool recieverIsDefending, bool crit)
@@ -65,8 +81,15 @@ namespace BusinessLogic
 
         public Character Looting(Character character, Monster monster)
         {
-            data.GetMonsterLoot().Where(ml => ml.MonsterID == monster.Name);
-            return null;
+            Character c = character;
+            var monsterLoot = data.GetMonsterLoot().Where(ml => ml.MonsterID == monster.Name).FirstOrDefault();
+            c.CurrentExp += monsterLoot.ExpGain;
+            c.Gold += monsterLoot.GoldDrop;
+            c.Backpack.Add(monsterLoot.ItemDropOneID);
+            c.Backpack.Add(monsterLoot.ItemDropTwoID);
+            c.Backpack.Add(monsterLoot.ItemDropThreeID);
+            c.Backpack.Add(monsterLoot.ItemDropFourID);
+            return c;
         }
     }
 }
