@@ -24,5 +24,3 @@ C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-s
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\obj\Debug\RPGame C-sharp.csproj.CoreCompileInputs.cache
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\obj\Debug\RPGame C-sharp.exe
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\obj\Debug\RPGame C-sharp.pdb
-C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\Ninject.dll
-C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\Ninject.xml

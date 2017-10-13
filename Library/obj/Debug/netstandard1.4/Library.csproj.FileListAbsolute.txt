@@ -6,3 +6,4 @@ C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\Library\ob
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\Library\obj\Debug\netstandard1.4\Library.AssemblyInfo.cs
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\Library\obj\Debug\netstandard1.4\Library.dll
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\Library\obj\Debug\netstandard1.4\Library.pdb
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\Library\obj\Debug\netstandard1.4\Library.AssemblyInfoInputs.cache
