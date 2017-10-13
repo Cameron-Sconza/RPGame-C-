@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MonsterList>
+	<Monster>
+		<Name>Goblin</Name>
+		<MaxHealthPoints>15</MaxHealthPoints>
+		<Attack>3</Attack>
+		<Defence>2</Defence>
+	</Monster>
+	<Monster>
+		<Name>Hobgoblin</Name>
+		<MaxHealthPoints>35</MaxHealthPoints>
+		<Attack>7</Attack>
+		<Defence>5</Defence>
+	</Monster>
+	<Monster>
+		<Name>Ogre</Name>
+		<MaxHealthPoints>80</MaxHealthPoints>
+		<Attack>15</Attack>
+		<Defence>11</Defence>
+	</Monster>
+	<Monster>
+		<Name>Skeleton</Name>
+		<MaxHealthPoints>190</MaxHealthPoints>
+		<Attack>7</Attack>
+		<Defence>22</Defence>
+	</Monster>
+	<Monster>
+		<Name>Dragon</Name>
+		<MaxHealthPoints>470</MaxHealthPoints>
+		<Attack>50</Attack>
+		<Defence>9</Defence>
+	</Monster>
+</MonsterList>

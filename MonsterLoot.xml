@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MonsterLootList>
+	<MonsterLoot>
+		<Name>Goblin</Name>
+		<ExpGain>3</ExpGain>
+		<GoldDrop>2</GoldDrop>
+		<ItemDropOneID>Raw Hide</ItemDropOneID>
+		<ItemDropTwoID>Goblin Claw</ItemDropTwoID>
+		<ItemDropThreeID>Goblin Horn</ItemDropThreeID>
+		<ItemDropFourID>Rusted Metal</ItemDropFourID>
+	</MonsterLoot>
+	<MonsterLoot>
+		<Name>Hobgoblin</Name>
+		<ExpGain>7</ExpGain>
+		<GoldDrop>5</GoldDrop>
+		<ItemDropOneID></ItemDropOneID>
+		<ItemDropTwoID></ItemDropTwoID>
+		<ItemDropThreeID></ItemDropThreeID>
+		<ItemDropFourID></ItemDropFourID>
+	</MonsterLoot>
+	<MonsterLoot>
+		<Name>Ogre</Name>
+		<ExpGain>15</ExpGain>
+		<GoldDrop>11</GoldDrop>
+		<ItemDropOneID></ItemDropOneID>
+		<ItemDropTwoID></ItemDropTwoID>
+		<ItemDropThreeID></ItemDropThreeID>
+		<ItemDropFourID></ItemDropFourID>
+	</MonsterLoot>
+	<MonsterLoot>
+		<Name>Skeleton</Name>
+		<ExpGain>31</ExpGain>
+		<GoldDrop>23</GoldDrop>
+		<ItemDropOneID></ItemDropOneID>
+		<ItemDropTwoID></ItemDropTwoID>
+		<ItemDropThreeID></ItemDropThreeID>
+		<ItemDropFourID></ItemDropFourID>
+	</MonsterLoot>
+	<MonsterLoot>
+		<Name>Dragon</Name>
+		<ExpGain>63</ExpGain>
+		<GoldDrop>47</GoldDrop>
+		<ItemDropOneID></ItemDropOneID>
+		<ItemDropTwoID></ItemDropTwoID>
+		<ItemDropThreeID></ItemDropThreeID>
+		<ItemDropFourID></ItemDropFourID>
+	</MonsterLoot>
+</MonsterLootList>

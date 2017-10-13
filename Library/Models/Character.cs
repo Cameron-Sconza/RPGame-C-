@@ -22,14 +22,14 @@ namespace Library.Models
         public string CharacterClass { get; set; }
         public List<string> Backpack { get; set; } //ItemIDs
         public string MainHandID { get; set; }
-        public string OffHandID { get; set;}
-        public string ArmourID { get; set;}
+        public string OffHandID { get; set; }
+        public string ArmourID { get; set; }
         public MainHand MainHand { get; set; }
         public OffHand OffHand { get; set; }
         public Armour Armour { get; set; }
         public Character()
         {
-            List<string> Backpack = new List<string>();
+            Backpack = new List<string>();
         }
     }
 }

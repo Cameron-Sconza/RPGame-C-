@@ -13,7 +13,7 @@ namespace Library.Models
         public int ConstitutionBonus { get; set; }
         public int IntellegenceBonus { get; set; }
         public int SellPrice { get; set; }
-        public int BuyPrice {get; set; }
+        public int BuyPrice { get; set; }
         public string Name { get; set; } //  ID
     }
 }

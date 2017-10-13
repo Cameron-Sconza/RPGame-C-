@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Library.Models;
+﻿using Library.Models;
 using DataAccess;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace BusinessLogic
 {
@@ -11,7 +11,7 @@ namespace BusinessLogic
         public static Data data = new Data();
         public Character LoadGame()
         {
-            Character character = data.LoadGame();
+            Character character = data.LoadGameXml();
             if (character == null)
             {
                 return null;
@@ -47,12 +47,60 @@ namespace BusinessLogic
 
         public double CalculateMaxHealthPoints(int level, int strength, int dexterity, int constitution)
         {
-            return Math.Ceiling(a: ((((level * strength + (dexterity * level) / 3)) / 2) + (4 * constitution)));
+            return Math.Ceiling(a: ((((level * strength + (dexterity * level) / 4)) / 2) + (4 * constitution)));
         }
 
         public void SaveGame(Character character)
         {
             data.SaveGameXML(character);
+        }
+
+        public bool HitMiss()
+        {
+            if (RNG() > 11)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool Crit()
+        {
+            if (RNG() < 25)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool AIAction()
+        {
+            if (RNG() < 33)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool Flee()
+        {
+            if (RNG() < 70)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public double Damage(double dealerAttack, double recieverDefence, bool recieverIsDefending, bool crit)
@@ -90,6 +138,20 @@ namespace BusinessLogic
             c.Backpack.Add(monsterLoot.ItemDropThreeID);
             c.Backpack.Add(monsterLoot.ItemDropFourID);
             return c;
+        }
+
+        public int RNG()
+        {
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] buffer = new byte[4];
+            rng.GetBytes(buffer);
+            int result = BitConverter.ToInt32(buffer, 0);
+            return new Random(result).Next(1, 100);
+        }
+
+        public Monster GetMonster(string monsterName)
+        {
+            return data.GetMonster().Where(m => m.Name == monsterName).FirstOrDefault();
         }
     }
 }
