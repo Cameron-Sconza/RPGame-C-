@@ -3,6 +3,7 @@ using DataAccess;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Collections.Generic;
 
 namespace BusinessLogic
 {
@@ -152,6 +153,16 @@ namespace BusinessLogic
         public Monster GetMonster(string monsterName)
         {
             return data.GetMonster().Where(m => m.Name == monsterName).FirstOrDefault();
+        }
+
+        public Item GrabItem(string itemName)
+        {
+            return null; // data.GetAllItmes().Where(i => i.Name == itemName).FirestOrDefault(); ;
+        }
+
+        public List<string> GetShopItemNames()
+        {
+            throw new NotImplementedException();
         }
     }
 }

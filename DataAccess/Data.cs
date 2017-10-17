@@ -69,8 +69,10 @@ namespace DataAccess
 
         public void SaveGameXML(Character character)
         {
+            XmlWriter xmlWriter = XmlWriter.Create(filePath + "Save.xml");
             XmlWriterSettings xmlWriterSettings = new XmlWriterSettings { Indent = true, NewLineOnAttributes = true };
-            using (XmlWriter xmlWriter = XmlWriter.Create(filePath + "Save.xml"))
+            xmlWriter.Settings.Indent = true;
+            using (xmlWriter)
             {
                 xmlWriter.WriteStartDocument();
                 xmlWriter.WriteStartElement("Character");
@@ -92,7 +94,7 @@ namespace DataAccess
                         xmlWriter.WriteElementString("Item", item);
                     }
                 }
-                xmlWriter.WriteElementString("ArmourID", character.ArmourID);
+                xmlWriter.WriteElementString("ArmourID", null);
                 xmlWriter.WriteElementString("OffHandID", character.OffHandID);
                 xmlWriter.WriteElementString("MainHandID", character.MainHandID);
                 xmlWriter.WriteEndElement();
@@ -161,6 +163,11 @@ namespace DataAccess
             }
             if (character.Name != null) { return character; }
             else { return null; }
+        }
+
+        public List<Item> GetAllItmes()
+        {
+            throw new NotImplementedException();
         }
 
         public List<MonsterLoot> GetMonsterLoot()

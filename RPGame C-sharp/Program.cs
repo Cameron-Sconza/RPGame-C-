@@ -14,7 +14,7 @@ namespace RPGame_C_sharp
             bool appIsRunning = true;
             do
             {
-                int choice = Menu("Welcome To RPGame C# Edition.\nPlease Make a Selection Below.\n\t1. New Game.\n\t2. Load Game.\n\t3. Quit Game.\n", 3);
+                int choice = BasicMenu("Welcome To RPGame C# Edition.\nPlease Make a Selection Below.\n\t1. New Game.\n\t2. Load Game.\n\t3. Quit Game.\n", 3);
                 switch (choice)
                 {
                     case (1):
@@ -48,7 +48,7 @@ namespace RPGame_C_sharp
             Character character = new Character { Level = 1, CurrentExp = 0, NextLevelExp = 10 };
             Console.Write("Welcome to Character Creation.\n\nWhat is Your Name?\n");
             character.Name = Console.ReadLine();
-            int choice = Menu("Please Select a Class From Below.\n1. Warrior.\n2. Rogue.\n3. Wizard.\n", 3);
+            int choice = BasicMenu("Please Select a Class From Below.\n1. Warrior.\n2. Rogue.\n3. Wizard.\n", 3);
             if (choice == 1)
             {
                 character.CharacterClass = "Warrior";
@@ -96,7 +96,7 @@ namespace RPGame_C_sharp
             {
                 Console.Clear();
                 Character c = character;
-                int choice = Menu("Current Health: " + character.CurrentHealthPoints + "\n\nWhat Would You Like to Do?\n\t1. Save.\n\t2. Hunt.\n\t3. Rest.\n\t4. Shop.\n\t5. Quit.\n", 5);
+                int choice = BasicMenu("Current Health: " + character.CurrentHealthPoints + "\n\nWhat Would You Like to Do?\n\t1. Save.\n\t2. Hunt.\n\t3. Rest.\n\t4. Shop.\n\t5. Quit.\n", 5);
                 switch (choice)
                 {
                     case (1):
@@ -132,7 +132,7 @@ namespace RPGame_C_sharp
             bool isHunting = true;
             do
             {
-                int choice = Menu("What Would You Like To Hunt?\n\t1. Forage For Stuff.\n\t2. Fight Monsters.\n\t3. Back.\n", 3);
+                int choice = BasicMenu("What Would You Like To Hunt?\n\t1. Forage For Stuff.\n\t2. Fight Monsters.\n\t3. Back.\n", 3);
                 switch (choice)
                 {
                     case (1):
@@ -193,7 +193,7 @@ namespace RPGame_C_sharp
             bool isHuntingMonsters = true;
             do
             {
-                int choice = Menu("Which Monster do you plan to hunt and possible kill?\n\t1. Goblin.\n\t2. Hobgoblin.\n\t3. Ogre.\n\t4. Nevermind.\n", 4);
+                int choice = BasicMenu("Which Monster do you plan to hunt and possible kill?\n\t1. Goblin.\n\t2. Hobgoblin.\n\t3. Ogre.\n\t4. Nevermind.\n", 4);
                 switch (choice)
                 {
                     case (1):
@@ -218,7 +218,7 @@ namespace RPGame_C_sharp
             do
             {
                 bool AIAction = logic.AIAction();
-                int choice = Menu("Your Health: " + character.CurrentHealthPoints + "\nMonsters Health: " +
+                int choice = BasicMenu("Your Health: " + character.CurrentHealthPoints + "\nMonsters Health: " +
                     mon.CurrentHealthPoints + "\nWhat will you do?\n\t1. Attack.\n\t2. Defend. \n\t3. Flee.\n", 3);
                 switch (choice)
                 {
@@ -247,7 +247,7 @@ namespace RPGame_C_sharp
             bool isShopping = true;
             do
             {
-                int choice = Menu("What Would you like to do in the market?\n\t1. Buy.\n\t2. Sell.\n\t3.Leave.\n", 3);
+                int choice = BasicMenu("What Would you like to do in the market?\n\t1. Buy.\n\t2. Sell.\n\t3.Leave.\n", 3);
                 switch (choice)
                 {
                     case (1):
@@ -264,14 +264,56 @@ namespace RPGame_C_sharp
 
         private static Character Sell(Character c)
         {
-            throw new NotImplementedException();
+            Character character = c;
+            bool isSellingItems = true;
+            do
+            {
+                int choice = StoreMenu("Please select an item to Sell.", character.Backpack);
+                if (choice > character.Backpack.Count)
+                {
+                    isSellingItems = false;
+                }
+                else
+                {
+                    Item item = logic.GrabItem(character.Backpack[choice]);
+                    character.Gold += item.SellPrice;
+                    character.Backpack.Remove(item.Name);
+                }
+            } while (isSellingItems);
+            return character;
         }
 
         private static Character Buy(Character c)
         {
-            throw new NotImplementedException();
+            Character character = c;
+            List<string> list = logic.GetShopItemNames();
+            bool isBuyingItems = true;
+            do
+            {
+                int choice = StoreMenu("Please select an item to Sell.", list);
+                if (choice > list.Count)
+                {
+                    isBuyingItems = false;
+                }
+                else
+                {
+                    Item item = logic.GrabItem(list[choice]);
+                    if ((character.Gold-item.BuyPrice) < 0)
+                    {
+                        Console.WriteLine("Not Enough Gold.");
+                        Thread.Sleep(750);
+                    }
+                    else
+                    {
+                        character.Gold -= item.BuyPrice;
+                        character.Backpack.Add(item.Name);
+                    }
+                }
+            } while (isBuyingItems);
+            return character;
         }
-        static int Menu(string text, int numOfChoices)
+
+        static int BasicMenu(string text, int numOfChoices)
         {
             int choice;
             int fail = 0;
@@ -287,6 +329,29 @@ namespace RPGame_C_sharp
                 int.TryParse(choiceStr.ToString(), out choice);
                 fail++;
             } while (!(choice > 0 && choice < (numOfChoices + 1)) || choice == 0);
+            return choice;
+        }
+
+        static int StoreMenu(string text, List<string> list)
+        {
+            int choice;
+            int fail = 0;
+            do
+            {
+                Console.Clear();
+                for (int i = 0; i > list.Count; i++)
+                {
+                    Console.WriteLine(i + ". Item:" + list[i] + ".");
+                }
+                Console.Write(text + "\nOr Enter a Number Higher the Your Inventory Count to Leave.");
+                if (fail > 3)
+                {
+                    Console.WriteLine("Please Try to Just Use the Number. No Enter Key Required.");
+                }
+                string choiceStr = Console.ReadLine();
+                int.TryParse(choiceStr, out choice);
+                fail++;
+            } while (!(choice > 0 && choice < (list.Count + 1)) || choice == 0);
             return choice;
         }
     }
