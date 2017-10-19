@@ -26,8 +26,6 @@ namespace RPGame_C_sharp
                     case (3):
                         appIsRunning = false;
                         break;
-                    default:
-                        break;
                 }
             } while (appIsRunning);
         }
@@ -212,13 +210,14 @@ namespace RPGame_C_sharp
 
         private static Character Fight(string monsterName, Character c)
         {
-            Monster mon = logic.GetMonster(monsterName);
+            Monster mon = new Monster();
+            mon = logic.GetMonster(monsterName);
             Character character = c;
             bool flee = false;
             do
             {
                 bool AIAction = logic.AIAction();
-                int choice = BasicMenu("Your Health: " + character.CurrentHealthPoints + "\nMonsters Health: " +
+                int choice = BasicMenu("Your Health: " + character.CurrentHealthPoints + mon.Name + ": " +
                     mon.CurrentHealthPoints + "\nWhat will you do?\n\t1. Attack.\n\t2. Defend. \n\t3. Flee.\n", 3);
                 switch (choice)
                 {
@@ -268,6 +267,7 @@ namespace RPGame_C_sharp
             bool isSellingItems = true;
             do
             {
+                Console.WriteLine("Current Gold:" + character.Gold);
                 int choice = StoreMenu("Please select an item to Sell.", character.Backpack);
                 if (choice > character.Backpack.Count)
                 {
@@ -275,7 +275,7 @@ namespace RPGame_C_sharp
                 }
                 else
                 {
-                    Item item = logic.GrabItem(character.Backpack[choice - 1]);
+                    Item item = logic.GrabItem(character.Backpack[choice-1]);
                     character.Gold += item.SellPrice;
                     character.Backpack.Remove(item.Name);
                 }
@@ -290,14 +290,15 @@ namespace RPGame_C_sharp
             bool isBuyingItems = true;
             do
             {
-                int choice = StoreMenu("Please select an item to Sell.", list);
+                Console.WriteLine("Current Gold:" + character.Gold);
+                int choice = StoreMenu("Please select an item to Buy.\n", list);
                 if (choice > list.Count)
                 {
                     isBuyingItems = false;
                 }
                 else
                 {
-                    Item item = list[choice - 1];
+                    Item item = list[choice-1];
                     if ((character.Gold - item.BuyPrice) < 0)
                     {
                         Console.WriteLine("Not Enough Gold.");
@@ -334,19 +335,20 @@ namespace RPGame_C_sharp
 
         static int StoreMenu(string text, List<Item> list)
         {
+            List<Item> itemList = list;
             int choice;
             int fail = 0;
             do
             {
                 Console.Clear();
-                for (int i = 0; i > list.Count; i++)
+                for (int i = 0; i < itemList.Count; i++)
                 {
-                    Console.WriteLine((i + 1) + ". Item:" + list[i] + ".");
+                    Console.WriteLine((i + 1) + ".\t Item: " + itemList[i].Name + ".\n\t Price: " + itemList[i].BuyPrice);
                 }
-                Console.Write(text + "\nOr Enter a Number Higher the Your Inventory Count to Leave.");
+                Console.WriteLine(text + "\nOr Enter a Number Higher then Displayed to Leave.");
                 if (fail > 3)
                 {
-                    Console.WriteLine("Please Try to Just Use a Numerical Value.");
+                    Console.WriteLine("Please Try to Just Use a Numerical Value.\n(Handles up to +20 of displayed.)");
                 }
                 string choiceStr = Console.ReadLine();
                 int.TryParse(choiceStr, out choice);
@@ -355,18 +357,19 @@ namespace RPGame_C_sharp
             return choice;
         }
 
-        static int BackpackMenu(string text, List<string> list)
+        static int StoreMenu(string text, List<string> list)
         {
+            List<string> itemList = list;
             int choice;
             int fail = 0;
             do
             {
                 Console.Clear();
-                for (int i = 1; i > list.Count; i++)
+                for (int i = 0; i < itemList.Count; i++)
                 {
-                    Console.WriteLine(i + ". Item:" + list[i] + ".");
+                    Console.WriteLine((i + 1) + ".\tItem: " + itemList[i]);
                 }
-                Console.Write(text + "\nOr Enter a Number Higher the Your Inventory Count to Leave.");
+                Console.WriteLine(text + "\nOr Enter a Number Higher the Your Inventory Count to Leave.");
                 if (fail > 3)
                 {
                     Console.WriteLine("Please Try to Just Use a Numerical Value.");

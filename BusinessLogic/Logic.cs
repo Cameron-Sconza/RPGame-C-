@@ -12,7 +12,7 @@ namespace BusinessLogic
         public static Data data = new Data();
         public Character LoadGame()
         {
-            Character character = data.LoadGameXml();
+            Character character = data.LoadGame();
             if (character == null)
             {
                 return null;
@@ -53,7 +53,7 @@ namespace BusinessLogic
 
         public void SaveGame(Character character)
         {
-            data.SaveGameXML(character);
+            data.SaveGame(character);
         }
 
         public bool HitMiss()
@@ -138,7 +138,47 @@ namespace BusinessLogic
             c.Backpack.Add(monsterLoot.ItemDropTwoID);
             c.Backpack.Add(monsterLoot.ItemDropThreeID);
             c.Backpack.Add(monsterLoot.ItemDropFourID);
+            if (c.CurrentExp > c.NextLevelExp)
+            {
+                c = LevelUp(c);
+            }
             return c;
+        }
+
+        private Character LevelUp(Character c)
+        {
+            Character character = c;
+            character.Level++;
+            if (character.Level % 10 == 0)
+            {
+                character.Strength++;
+                character.Dexterity++;
+                character.Intellegence++;
+            }
+            else if (character.Level % 5 == 0)
+            {
+                character.Constitution++;
+                switch (character.CharacterClass)
+                {
+                    case ("Warrior"):
+                        character.Strength++;
+                        break;
+                    case ("Rogue"):
+                        character.Dexterity++;
+                        break;
+                    case ("Wizard"):
+                        character.Intellegence++;
+                        break;
+                }
+            }
+            else
+            {
+                character.Constitution++;
+            }
+            character.Attack = CalculateAttack(character.Strength, character.Dexterity, character.Intellegence, character.CharacterClass);
+            character.Defence = CalculateDefence(character.Strength, character.Dexterity);
+            character.MaxHealthPoints = CalculateMaxHealthPoints(character.Level, character.Strength, character.Dexterity, character.Constitution);
+            return character;
         }
 
         public int RNG()
