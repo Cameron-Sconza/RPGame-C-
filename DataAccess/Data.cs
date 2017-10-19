@@ -70,8 +70,8 @@ namespace DataAccess
         public void SaveGameXML(Character character)
         {
             XmlWriter xmlWriter = XmlWriter.Create(filePath + "Save.xml");
-            XmlWriterSettings xmlWriterSettings = new XmlWriterSettings { Indent = true, NewLineOnAttributes = true };
             xmlWriter.Settings.Indent = true;
+            xmlWriter.Settings.NewLineOnAttributes = true;
             using (xmlWriter)
             {
                 xmlWriter.WriteStartDocument();
@@ -106,8 +106,10 @@ namespace DataAccess
         public Character LoadGameXml()
         {
             Character character = new Character();
-            XmlReaderSettings readerSettings = new XmlReaderSettings() { IgnoreComments = true, IgnoreWhitespace = true };
-            using (XmlReader xmlReader = XmlReader.Create(filePath + "Save.xml"))
+            XmlReader xmlReader = XmlReader.Create(filePath + "Save.xml");
+            xmlReader.Settings.IgnoreComments = true;
+            xmlReader.Settings.IgnoreWhitespace = true;
+            using (xmlReader)
             {
                 while (xmlReader.Read())
                 {
@@ -167,23 +169,51 @@ namespace DataAccess
 
         public List<Item> GetAllItmes()
         {
-            throw new NotImplementedException();
+            List<Item> list = new List<Item>();
+            XmlReader xmlReader = XmlReader.Create(filePath + "Monster.xml");
+            xmlReader.Settings.IgnoreComments = true;
+            xmlReader.Settings.IgnoreWhitespace = true;
+            using (xmlReader)
+            {
+                Item item = new Item();
+                while (xmlReader.Read())
+                {
+                    if (xmlReader.NodeType != XmlNodeType.EndElement)
+                    {
+                        if (xmlReader.Name == "Name")
+                        {
+                            item.Name = GetValueXML(xmlReader);
+                        }
+                        else if (xmlReader.Name == "BuyPrice")
+                        {
+                            item.BuyPrice = int.Parse(GetValueXML(xmlReader));
+                        }
+                    }
+                    else
+                    {
+                        if (xmlReader.Name == "Item")
+                        {
+                            item.SellPrice = Convert.ToInt32(Math.Ceiling(a:item.BuyPrice/10));
+                            list.Add(item);
+                            item = new Item();
+                        }
+                    }
+                }
+            }
+            return list;
         }
 
         public List<MonsterLoot> GetMonsterLoot()
         {
             List<MonsterLoot> list = new List<MonsterLoot>();
-            XmlReaderSettings readerSettings = new XmlReaderSettings() { IgnoreComments = true, IgnoreWhitespace = true };
-            using (XmlReader xmlReader = XmlReader.Create(filePath + "MonsterLoot.xml"))
+            XmlReader xmlReader = XmlReader.Create(filePath + "MonsterLoot.xml");
+            xmlReader.Settings.IgnoreComments = true;
+            xmlReader.Settings.IgnoreWhitespace = true;
+            using (xmlReader)
             {
                 MonsterLoot mon = new MonsterLoot();
                 while (xmlReader.Read())
                 {
-                    if (mon.MonsterID != null && mon.ExpGain != 0 && mon.GoldDrop != 0 && mon.ItemDropOneID != null && mon.ItemDropTwoID != null && mon.ItemDropThreeID != null && mon.ItemDropFourID != null)
-                    {
-                        list.Add(mon);
-                        mon = new MonsterLoot();
-                    }
                     if (xmlReader.NodeType != XmlNodeType.EndElement)
                     {
                         switch (xmlReader.Name)
@@ -211,6 +241,14 @@ namespace DataAccess
                                 break;
                         }
                     }
+                    else
+                    {
+                        if (xmlReader.Name == "MonsterLoot")
+                        {
+                            list.Add(mon);
+                            mon = new MonsterLoot();
+                        }
+                    }
                 }
             }
             return list;
@@ -219,18 +257,14 @@ namespace DataAccess
         public List<Monster> GetMonster()
         {
             List<Monster> list = new List<Monster>();
-            XmlReaderSettings readerSettings = new XmlReaderSettings() { IgnoreComments = true, IgnoreWhitespace = true };
-            using (XmlReader xmlReader = XmlReader.Create(filePath + "Monster.xml"))
+            XmlReader xmlReader = XmlReader.Create(filePath + "Monster.xml");
+            xmlReader.Settings.IgnoreComments = true;
+            xmlReader.Settings.IgnoreWhitespace = true;
+            using (xmlReader)
             {
                 Monster mon = new Monster();
                 while (xmlReader.Read())
                 {
-                    if (mon.Name != null && mon.MaxHealthPoints != 0 && mon.Attack != 0 && mon.Defence != 0)
-                    {
-                        mon.CurrentHealthPoints = mon.MaxHealthPoints;
-                        list.Add(mon);
-                        mon = new Monster();
-                    }
                     if (xmlReader.NodeType != XmlNodeType.EndElement)
                     {
                         switch (xmlReader.Name)
@@ -247,6 +281,14 @@ namespace DataAccess
                             case ("Defence"):
                                 mon.Defence = double.Parse(GetValueXML(xmlReader));
                                 break;
+                        }
+                    }
+                    else
+                    {
+                        if (xmlReader.Name == "Monster")
+                        {
+                            list.Add(mon);
+                            mon = new Monster();
                         }
                     }
                 }

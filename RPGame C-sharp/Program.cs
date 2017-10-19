@@ -275,7 +275,7 @@ namespace RPGame_C_sharp
                 }
                 else
                 {
-                    Item item = logic.GrabItem(character.Backpack[choice]);
+                    Item item = logic.GrabItem(character.Backpack[choice - 1]);
                     character.Gold += item.SellPrice;
                     character.Backpack.Remove(item.Name);
                 }
@@ -286,7 +286,7 @@ namespace RPGame_C_sharp
         private static Character Buy(Character c)
         {
             Character character = c;
-            List<string> list = logic.GetShopItemNames();
+            List<Item> list = logic.GetShopItemNames();
             bool isBuyingItems = true;
             do
             {
@@ -297,8 +297,8 @@ namespace RPGame_C_sharp
                 }
                 else
                 {
-                    Item item = logic.GrabItem(list[choice]);
-                    if ((character.Gold-item.BuyPrice) < 0)
+                    Item item = list[choice - 1];
+                    if ((character.Gold - item.BuyPrice) < 0)
                     {
                         Console.WriteLine("Not Enough Gold.");
                         Thread.Sleep(750);
@@ -332,7 +332,7 @@ namespace RPGame_C_sharp
             return choice;
         }
 
-        static int StoreMenu(string text, List<string> list)
+        static int StoreMenu(string text, List<Item> list)
         {
             int choice;
             int fail = 0;
@@ -341,17 +341,40 @@ namespace RPGame_C_sharp
                 Console.Clear();
                 for (int i = 0; i > list.Count; i++)
                 {
+                    Console.WriteLine((i + 1) + ". Item:" + list[i] + ".");
+                }
+                Console.Write(text + "\nOr Enter a Number Higher the Your Inventory Count to Leave.");
+                if (fail > 3)
+                {
+                    Console.WriteLine("Please Try to Just Use a Numerical Value.");
+                }
+                string choiceStr = Console.ReadLine();
+                int.TryParse(choiceStr, out choice);
+                fail++;
+            } while (!(choice > 0 && choice < (list.Count + 20)) || choice == 0);
+            return choice;
+        }
+
+        static int BackpackMenu(string text, List<string> list)
+        {
+            int choice;
+            int fail = 0;
+            do
+            {
+                Console.Clear();
+                for (int i = 1; i > list.Count; i++)
+                {
                     Console.WriteLine(i + ". Item:" + list[i] + ".");
                 }
                 Console.Write(text + "\nOr Enter a Number Higher the Your Inventory Count to Leave.");
                 if (fail > 3)
                 {
-                    Console.WriteLine("Please Try to Just Use the Number. No Enter Key Required.");
+                    Console.WriteLine("Please Try to Just Use a Numerical Value.");
                 }
                 string choiceStr = Console.ReadLine();
                 int.TryParse(choiceStr, out choice);
                 fail++;
-            } while (!(choice > 0 && choice < (list.Count + 1)) || choice == 0);
+            } while (!(choice > 0 && choice < (list.Count + 20)) || choice == 0);
             return choice;
         }
     }

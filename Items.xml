@@ -1,0 +1,75 @@
+<?xmlversion="1.0"encoding="utf-8"?>
+<ItemList>
+	<Item>
+		<Name>Scale</Name>
+		<BuyPrice>2000</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Dragon Hide</Name>
+		<BuyPrice>2500</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Dragon Heart</Name>
+		<BuyPrice>5000</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Enchanted Tear</Name>
+		<BuyPrice>10000</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Goblin Claw</Name>
+		<BuyPrice>10</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Goblin Horn</Name>
+		<BuyPrice>25</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Rusted Metal</Name>
+		<BuyPrice>5</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Bone</Name>
+		<BuyPrice>50</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Hard Bone</Name>
+		<BuyPrice>100</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Rusted Sword</Name>
+		<BuyPrice>50</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Bow</Name>
+		<BuyPrice>75</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Ogre Ear</Name>
+		<BuyPrice>100</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Macabre Eye</Name>
+		<BuyPrice>175</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Unspeakable Meat</Name>
+		<BuyPrice>40</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Ogre Hide</Name>
+		<BuyPrice>90</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Raw Hide</Name>
+		<BuyPrice>60</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Blade Fragment</Name>
+		<BuyPrice>35</BuyPrice>
+	</Item>
+	<Item>
+		<Name>Goblin's Blood</Name>
+		<BuyPrice>55</BuyPrice>
+	</Item>
+</ItemList>

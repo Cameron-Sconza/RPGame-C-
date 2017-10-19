@@ -157,12 +157,12 @@ namespace BusinessLogic
 
         public Item GrabItem(string itemName)
         {
-            return null; // data.GetAllItmes().Where(i => i.Name == itemName).FirestOrDefault(); ;
+            return data.GetAllItmes().Where(i => i.Name == itemName).FirstOrDefault();
         }
 
-        public List<string> GetShopItemNames()
+        public List<Item> GetShopItemNames()
         {
-            throw new NotImplementedException();
+            return data.GetAllItmes();
         }
     }
 }
