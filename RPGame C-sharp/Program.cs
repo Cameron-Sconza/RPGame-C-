@@ -77,7 +77,7 @@ namespace RPGame_C_sharp
                 character.Constitution = 5;
                 character.Intellegence = 12;
                 character.ArmourID = "Ragged Clothes";
-                character.MainHandID = "Wooden Sword";
+                character.MainHandID = "Wooden Staff";
                 character.OffHandID = "Pot Lid";
             }
             character.Attack = logic.CalculateAttack(character.Strength, character.Dexterity, character.Intellegence, character.CharacterClass);
@@ -90,10 +90,10 @@ namespace RPGame_C_sharp
         static void PlayGame(Character character)
         {
             bool isPlaying = true;
+            Character c = character;
             do
             {
                 Console.Clear();
-                Character c = character;
                 int choice = BasicMenu("Current Health: " + character.CurrentHealthPoints + "\n\nWhat Would You Like to Do?\n\t1. Save.\n\t2. Hunt.\n\t3. Rest.\n\t4. Shop.\n\t5. Quit.\n", 5);
                 switch (choice)
                 {
@@ -111,7 +111,7 @@ namespace RPGame_C_sharp
                         break;
                     case (3):
                         c.CurrentHealthPoints = c.MaxHealthPoints;
-                        Console.Write("You feel Refeshed After a Night at the Inn.\n");
+                        Console.Write("\nYou feel Refeshed After a Night at the Inn.\n");
                         Thread.Sleep(1000);
                         break;
                     case (4):
@@ -324,12 +324,11 @@ namespace RPGame_C_sharp
                 Console.Write(text);
                 if (fail > 3)
                 {
-                    Console.WriteLine("Please Try to Just Use the Number. No Enter Key Required.");
+                    Console.WriteLine("Please Use a Numerical Value.");
                 }
-                char choiceStr = Console.ReadKey().KeyChar;
-                int.TryParse(choiceStr.ToString(), out choice);
+                int.TryParse(Console.ReadLine(), out choice);
                 fail++;
-            } while (!(choice > 0 && choice < (numOfChoices + 1)) || choice == 0);
+            } while (!(choice > 0 && choice <= numOfChoices) || choice == 0);
             return choice;
         }
 
@@ -340,18 +339,16 @@ namespace RPGame_C_sharp
             int fail = 0;
             do
             {
-                Console.Clear();
                 for (int i = 0; i < itemList.Count; i++)
                 {
                     Console.WriteLine((i + 1) + ".\t Item: " + itemList[i].Name + ".\n\t Price: " + itemList[i].BuyPrice);
                 }
-                Console.WriteLine(text + "\nOr Enter a Number Higher then Displayed to Leave.");
+                Console.WriteLine(text + "\nOr Enter a Number Higher than Displayed to Leave.");
                 if (fail > 3)
                 {
-                    Console.WriteLine("Please Try to Just Use a Numerical Value.\n(Handles up to +20 of displayed.)");
+                    Console.WriteLine("Please Use a Numerical Value.\n(Handles up to +20 of displayed.)");
                 }
-                string choiceStr = Console.ReadLine();
-                int.TryParse(choiceStr, out choice);
+                int.TryParse(Console.ReadLine(), out choice);
                 fail++;
             } while (!(choice > 0 && choice < (list.Count + 20)) || choice == 0);
             return choice;
@@ -364,18 +361,16 @@ namespace RPGame_C_sharp
             int fail = 0;
             do
             {
-                Console.Clear();
                 for (int i = 0; i < itemList.Count; i++)
                 {
                     Console.WriteLine((i + 1) + ".\tItem: " + itemList[i]);
                 }
-                Console.WriteLine(text + "\nOr Enter a Number Higher the Your Inventory Count to Leave.");
+                Console.WriteLine(text + "\nOr Enter a Number Higher than Your Inventory Count to Leave.");
                 if (fail > 3)
                 {
-                    Console.WriteLine("Please Try to Just Use a Numerical Value.");
+                    Console.WriteLine("Please Use a Numerical Value.\n(Handles up to +20 of displayed.)");
                 }
-                string choiceStr = Console.ReadLine();
-                int.TryParse(choiceStr, out choice);
+                int.TryParse(Console.ReadLine(), out choice);
                 fail++;
             } while (!(choice > 0 && choice < (list.Count + 20)) || choice == 0);
             return choice;

@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Library.Models;
-using System.IO;
 using System.Xml;
 
 namespace DataAccess
@@ -57,50 +53,61 @@ namespace DataAccess
                 {
                     if (xmlReader.NodeType != XmlNodeType.EndElement)
                     {
-                        switch (xmlReader.Name)
+                        if (xmlReader.Name == "Name")
                         {
-                            case ("Name"):
-                                character.Name = GetValueXML(xmlReader);
-                                break;
-                            case ("CharacterClass"):
-                                character.CharacterClass = GetValueXML(xmlReader);
-                                break;
-                            case ("Level"):
-                                character.Level = int.Parse(GetValueXML(xmlReader));
-                                break;
-                            case ("Strength"):
-                                character.Strength = int.Parse(GetValueXML(xmlReader));
-                                break;
-                            case ("Dexterity"):
-                                character.Dexterity = int.Parse(GetValueXML(xmlReader));
-                                break;
-                            case ("Constitution"):
-                                character.Constitution = int.Parse(GetValueXML(xmlReader));
-                                break;
-                            case ("Intellegence"):
-                                character.Intellegence = int.Parse(GetValueXML(xmlReader));
-                                break;
-                            case ("Gold"):
-                                character.Gold = int.Parse(GetValueXML(xmlReader));
-                                break;
-                            case ("CurrentExp"):
-                                character.CurrentExp = double.Parse(GetValueXML(xmlReader));
-                                break;
-                            case ("NextLevelExp"):
-                                character.NextLevelExp = double.Parse(GetValueXML(xmlReader));
-                                break;
-                            case ("MainHandID"):
-                                character.MainHandID = GetValueXML(xmlReader);
-                                break;
-                            case ("OffHandID"):
-                                character.OffHandID = GetValueXML(xmlReader);
-                                break;
-                            case ("ArmourID"):
-                                character.ArmourID = GetValueXML(xmlReader);
-                                break;
-                            case ("Item"):
-                                character.Backpack.Add(GetValueXML(xmlReader));
-                                break;
+                            character.Name = GetValueXML(xmlReader);
+                        }
+                        else if (xmlReader.Name == "CharacterClass")
+                        {
+                            character.CharacterClass = GetValueXML(xmlReader);
+                        }
+                        else if (xmlReader.Name == "Level")
+                        {
+                            character.Level = int.Parse(GetValueXML(xmlReader));
+                        }
+                        else if (xmlReader.Name == "Strength")
+                        {
+                            character.Strength = int.Parse(GetValueXML(xmlReader));
+                        }
+                        else if (xmlReader.Name == "Dexterity")
+                        {
+                            character.Dexterity = int.Parse(GetValueXML(xmlReader));
+                        }
+                        else if (xmlReader.Name == "Constitution")
+                        {
+                            character.Constitution = int.Parse(GetValueXML(xmlReader));
+                        }
+                        else if (xmlReader.Name == "Intellegence")
+                        {
+                            character.Intellegence = int.Parse(GetValueXML(xmlReader));
+                        }
+                        else if (xmlReader.Name == "Gold")
+                        {
+                            character.Gold = int.Parse(GetValueXML(xmlReader));
+                        }
+                        else if (xmlReader.Name == "CurrentExp")
+                        {
+                            character.CurrentExp = double.Parse(GetValueXML(xmlReader));
+                        }
+                        else if (xmlReader.Name == "NextLevelExp")
+                        {
+                            character.NextLevelExp = double.Parse(GetValueXML(xmlReader));
+                        }
+                        else if (xmlReader.Name == "MainHandID")
+                        {
+                            character.MainHandID = GetValueXML(xmlReader);
+                        }
+                        else if (xmlReader.Name == "OffHandID")
+                        {
+                            character.OffHandID = GetValueXML(xmlReader);
+                        }
+                        else if (xmlReader.Name == "ArmourID")
+                        {
+                            character.ArmourID = GetValueXML(xmlReader);
+                        }
+                        else if (xmlReader.Name == "Item")
+                        {
+                            character.Backpack.Add(GetValueXML(xmlReader));
                         }
                     }
                 }
@@ -133,7 +140,7 @@ namespace DataAccess
                     {
                         if (xmlReader.Name == "Item")
                         {
-                            item.SellPrice = Convert.ToInt32(Math.Ceiling(a:item.BuyPrice/10));
+                            item.SellPrice = Convert.ToInt32(Math.Ceiling(a: item.BuyPrice / 10));
                             list.Add(item);
                             item = new Item();
                         }
@@ -154,31 +161,36 @@ namespace DataAccess
                 {
                     if (xmlReader.NodeType != XmlNodeType.EndElement)
                     {
-                        switch (xmlReader.Name)
+                        if (xmlReader.Name == "Name")
                         {
-                            case ("Name"):
-                                mon.MonsterID = GetValueXML(xmlReader);
-                                break;
-                            case ("ExpGain"):
-                                mon.ExpGain = double.Parse(GetValueXML(xmlReader));
-                                break;
-                            case ("GoldDrop"):
-                                mon.GoldDrop = int.Parse(GetValueXML(xmlReader));
-                                break;
-                            case ("ItemDropOneID"):
-                                mon.ItemDropOneID = GetValueXML(xmlReader);
-                                break;
-                            case ("ItemDropTwoID"):
-                                mon.ItemDropTwoID = GetValueXML(xmlReader);
-                                break;
-                            case ("ItemDropThreeID"):
-                                mon.ItemDropThreeID = GetValueXML(xmlReader);
-                                break;
-                            case ("ItemDropFourID"):
-                                mon.ItemDropFourID = GetValueXML(xmlReader);
-                                break;
+                            mon.MonsterID = GetValueXML(xmlReader);
+                        }
+                        else if (xmlReader.Name == "ExpGain")
+                        {
+                            mon.ExpGain = double.Parse(GetValueXML(xmlReader));
+                        }
+                        else if (xmlReader.Name == "GoldDrop")
+                        {
+                            mon.GoldDrop = int.Parse(GetValueXML(xmlReader));
+                        }
+                        else if (xmlReader.Name == "ItemDropOneID")
+                        {
+                            mon.ItemDropOneID = GetValueXML(xmlReader);
+                        }
+                        else if (xmlReader.Name == "ItemDropTwoID")
+                        {
+                            mon.ItemDropTwoID = GetValueXML(xmlReader);
+                        }
+                        else if (xmlReader.Name == "ItemDropThreeID")
+                        {
+                            mon.ItemDropThreeID = GetValueXML(xmlReader);
+                        }
+                        else if (xmlReader.Name == "ItemDropFourID")
+                        {
+                            mon.ItemDropFourID = GetValueXML(xmlReader);
                         }
                     }
+
                     else
                     {
                         if (xmlReader.Name == "MonsterLoot")
@@ -203,20 +215,21 @@ namespace DataAccess
                 {
                     if (xmlReader.NodeType != XmlNodeType.EndElement)
                     {
-                        switch (xmlReader.Name)
+                        if (xmlReader.Name == "Name")
                         {
-                            case ("Name"):
-                                mon.Name = GetValueXML(xmlReader);
-                                break;
-                            case ("MaxHealthPoints"):
-                                mon.MaxHealthPoints = double.Parse(GetValueXML(xmlReader));
-                                break;
-                            case ("Attack"):
-                                mon.Attack = double.Parse(GetValueXML(xmlReader));
-                                break;
-                            case ("Defence"):
-                                mon.Defence = double.Parse(GetValueXML(xmlReader));
-                                break;
+                            mon.Name = GetValueXML(xmlReader);
+                        }
+                        else if (xmlReader.Name == "MaxHealthPoints")
+                        {
+                            mon.MaxHealthPoints = double.Parse(GetValueXML(xmlReader));
+                        }
+                        else if (xmlReader.Name == "Attack")
+                        {
+                            mon.Attack = double.Parse(GetValueXML(xmlReader));
+                        }
+                        else if (xmlReader.Name == "Defence")
+                        {
+                            mon.Defence = double.Parse(GetValueXML(xmlReader));
                         }
                     }
                     else
