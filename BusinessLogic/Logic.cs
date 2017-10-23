@@ -70,7 +70,7 @@ namespace BusinessLogic
 
         public bool Crit()
         {
-            if (RNG() < 25)
+            if (RNG() < 20)
             {
                 return true;
             }
@@ -197,12 +197,12 @@ namespace BusinessLogic
 
         public Item GrabItem(string itemName)
         {
-            return data.GetAllItmes().Where(i => i.Name == itemName).FirstOrDefault();
+            return data.GetAllItems().Where(i => i.Name == itemName).FirstOrDefault();
         }
 
         public List<Item> GetShopItemNames()
         {
-            return data.GetAllItmes();
+            return data.GetAllItems();
         }
     }
 }

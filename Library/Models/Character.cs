@@ -20,16 +20,19 @@ namespace Library.Models
         public double MaxHealthPoints { get; set; }
         public string Name { get; set; }
         public string CharacterClass { get; set; }
-        public List<string> Backpack { get; set; } //ItemIDs
-        public string MainHandID { get; set; }
-        public string OffHandID { get; set; }
-        public string ArmourID { get; set; }
+        public List<Item> ItemBackpack { get; set; }
+        public List<Armour> ArmourBackpack { get; set; }
+        public List<MainHand> MainHandBackpack { get; set; }
+        public List<OffHand> OffHandBackpack { get; set; }
         public MainHand MainHand { get; set; }
         public OffHand OffHand { get; set; }
-        public Armour Armour { get; set; }
+        public Equipment Armour { get; set; }
         public Character()
         {
-            Backpack = new List<string>();
+            ItemBackpack = new List<Item>();
+            ArmourBackpack = new List<Armour>();
+            MainHandBackpack = new List<MainHand>();
+            OffHandBackpack = new List<OffHand>();
         }
     }
 }

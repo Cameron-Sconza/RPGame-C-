@@ -54,9 +54,6 @@ namespace RPGame_C_sharp
                 character.Dexterity = 5;
                 character.Constitution = 6;
                 character.Intellegence = 3;
-                character.ArmourID = "Ragged Clothes";
-                character.MainHandID = "Wooden Sword";
-                character.OffHandID = "Pot Lid";
             }
             else if (choice == 2)
             {
@@ -65,9 +62,6 @@ namespace RPGame_C_sharp
                 character.Dexterity = 9;
                 character.Constitution = 6;
                 character.Intellegence = 5;
-                character.ArmourID = "Ragged Clothes";
-                character.MainHandID = "Wooden Dagger";
-                character.OffHandID = "Wooden Dagger";
             }
             else if (choice == 3)
             {
@@ -76,9 +70,6 @@ namespace RPGame_C_sharp
                 character.Dexterity = 4;
                 character.Constitution = 5;
                 character.Intellegence = 12;
-                character.ArmourID = "Ragged Clothes";
-                character.MainHandID = "Wooden Staff";
-                character.OffHandID = "Pot Lid";
             }
             character.Attack = logic.CalculateAttack(character.Strength, character.Dexterity, character.Intellegence, character.CharacterClass);
             character.Defence = logic.CalculateDefence(character.Strength, character.Dexterity);
