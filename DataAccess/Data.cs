@@ -27,6 +27,9 @@ namespace DataAccess
                 xmlWriter.WriteElementString("Level", character.Level.ToString());
                 xmlWriter.WriteElementString("CurrentExp", character.CurrentExp.ToString());
                 xmlWriter.WriteElementString("NextLevelExp", character.NextLevelExp.ToString());
+                xmlWriter.WriteElementString("Armour", character.Armour.Name);
+                xmlWriter.WriteElementString("OffHand", character.OffHand.Name);
+                xmlWriter.WriteElementString("MainHand", character.MainHand.Name);
                 xmlWriter.WriteStartElement("ArmourBackpack");
                 if (character.ArmourBackpack != null)
                 {
@@ -63,9 +66,6 @@ namespace DataAccess
                     }
                 }
                 xmlWriter.WriteEndElement();
-                xmlWriter.WriteElementString("Armour", character.Armour.Name);
-                xmlWriter.WriteElementString("OffHand", character.OffHand.Name);
-                xmlWriter.WriteElementString("MainHand", character.MainHand.Name);
                 xmlWriter.WriteEndElement();
                 xmlWriter.WriteEndDocument();
             }
@@ -84,46 +84,83 @@ namespace DataAccess
                         switch (xmlReader.Name)
                         {
                             case ("Name"):
-                                    character.Name = GetValueXML(xmlReader);
+                                character.Name = GetValueForXML(xmlReader);
                                 break;
                             case ("CharacterClass"):
-                                    character.CharacterClass = GetValueXML(xmlReader);
+                                character.CharacterClass = GetValueForXML(xmlReader);
                                 break;
                             case ("Level"):
-                                    character.Level = int.Parse(GetValueXML(xmlReader));
+                                character.Level = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("Strength"):
-                                    character.Strength = int.Parse(GetValueXML(xmlReader));
+                                character.Strength = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("Dexterity"):
-                                    character.Dexterity = int.Parse(GetValueXML(xmlReader));
+                                character.Dexterity = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("Constitution"):
-                                    character.Constitution = int.Parse(GetValueXML(xmlReader));
+                                character.Constitution = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("Intellegence"):
-                                    character.Intellegence = int.Parse(GetValueXML(xmlReader));
+                                character.Intellegence = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("Gold"):
-                                    character.Gold = int.Parse(GetValueXML(xmlReader));
+                                character.Gold = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("CurrentExp"):
-                                    character.CurrentExp = double.Parse(GetValueXML(xmlReader));
+                                character.CurrentExp = double.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("NextLevelExp"):
-                                    character.NextLevelExp = double.Parse(GetValueXML(xmlReader));
+                                character.NextLevelExp = double.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("MainHand"):
-                                    character.MainHand = GetAllMainHands().Where(m => m.Name == GetValueXML(xmlReader)).FirstOrDefault();
+                                character.MainHand = GetAllMainHands().Where(m => m.Name == GetValueForXML(xmlReader)).FirstOrDefault();
                                 break;
                             case ("OffHand"):
-                                    character.OffHand = GetAllOffHands().Where(m => m.Name == GetValueXML(xmlReader)).FirstOrDefault();
+                                character.OffHand = GetAllOffHands().Where(m => m.Name == GetValueForXML(xmlReader)).FirstOrDefault();
                                 break;
                             case ("Armour"):
-                                    character.Armour = GetAllArmours().Where(m => m.Name == GetValueXML(xmlReader)).FirstOrDefault();
+                                character.Armour = GetAllArmours().Where(m => m.Name == GetValueForXML(xmlReader)).FirstOrDefault();
                                 break;
-                            case ("Item"):
-                                    character.ItemBackpack.Add(GetAllItems().Where(i => i.Name == GetValueXML(xmlReader)).FirstOrDefault());
+                            case ("ArmourBackpack"):
+                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "OffHandBackpack")
+                                {
+                                    if (xmlReader.NodeType != XmlNodeType.EndElement)
+                                    {
+                                        character.ArmourBackpack.Add(GetAllArmours().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
+                                    }
+                                    xmlReader.Read();
+                                }
+                                break;
+                            case ("ItemBackpack"):
+                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "OffHandBackpack")
+                                {
+                                    if (xmlReader.NodeType != XmlNodeType.EndElement)
+                                    {
+                                        character.ItemBackpack.Add(GetAllItems().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
+                                    }
+                                    xmlReader.Read();
+                                }
+                                break;
+                            case ("MainHandBackpack"):
+                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "OffHandBackpack")
+                                {
+                                    if (xmlReader.NodeType != XmlNodeType.EndElement)
+                                    {
+                                        character.MainHandBackpack.Add(GetAllMainHands().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
+                                    }
+                                    xmlReader.Read();
+                                }
+                                break;
+                            case ("OffHandBackpack"):
+                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "OffHandBackpack")
+                                {
+                                    if (xmlReader.NodeType != XmlNodeType.EndElement)
+                                    {
+                                        character.OffHandBackpack.Add(GetAllOffHands().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
+                                    }
+                                    xmlReader.Read();
+                                }
                                 break;
                         }
                     }
@@ -147,22 +184,40 @@ namespace DataAccess
                         switch (xmlReader.Name)
                         {
                             case ("Name"):
-                                item.Name = GetValueXML(xmlReader);
+                                item.Name = GetValueForXML(xmlReader);
                                 break;
                             case ("BuyPrice"):
-                                item.BuyPrice = int.Parse(GetValueXML(xmlReader));
+                                item.BuyPrice = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("SellPrice"):
-                                item.SellPrice = int.Parse(GetValueXML(xmlReader));
+                                item.SellPrice = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("Description"):
-                                item.Description = GetValueXML(xmlReader);
+                                item.Description = GetValueForXML(xmlReader);
+                                break;
+                            case ("AttackBonus"):
+                                item.AttackBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("DefenceBonus"):
+                                item.DefenceBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("StrengthBonus"):
+                                item.StrengthBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("DexterityBonus"):
+                                item.DexterityBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("ConstitutionBonus"):
+                                item.ConstitutionBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("IntellegenceBonus"):
+                                item.IntellegenceBonus = int.Parse(GetValueForXML(xmlReader));
                                 break;
                         }
                     }
                     else
                     {
-                        if (xmlReader.Name == "Item")
+                        if (xmlReader.Name == "Armour")
                         {
                             list.Add(item);
                             item = new Armour();
@@ -187,16 +242,16 @@ namespace DataAccess
                         switch (xmlReader.Name)
                         {
                             case ("Name"):
-                                item.Name = GetValueXML(xmlReader);
+                                item.Name = GetValueForXML(xmlReader);
                                 break;
                             case ("BuyPrice"):
-                                item.BuyPrice = int.Parse(GetValueXML(xmlReader));
+                                item.BuyPrice = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("SellPrice"):
-                                item.SellPrice = int.Parse(GetValueXML(xmlReader));
+                                item.SellPrice = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("Description"):
-                                item.Description = GetValueXML(xmlReader);
+                                item.Description = GetValueForXML(xmlReader);
                                 break;
                         }
                     }
@@ -227,22 +282,40 @@ namespace DataAccess
                         switch (xmlReader.Name)
                         {
                             case ("Name"):
-                                item.Name = GetValueXML(xmlReader);
+                                item.Name = GetValueForXML(xmlReader);
                                 break;
                             case ("BuyPrice"):
-                                item.BuyPrice = int.Parse(GetValueXML(xmlReader));
+                                item.BuyPrice = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("SellPrice"):
-                                item.SellPrice = int.Parse(GetValueXML(xmlReader));
+                                item.SellPrice = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("Description"):
-                                item.Description = GetValueXML(xmlReader);
+                                item.Description = GetValueForXML(xmlReader);
+                                break;
+                            case ("AttackBonus"):
+                                item.AttackBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("DefenceBonus"):
+                                item.DefenceBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("StrengthBonus"):
+                                item.StrengthBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("DexterityBonus"):
+                                item.DexterityBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("ConstitutionBonus"):
+                                item.ConstitutionBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("IntellegenceBonus"):
+                                item.IntellegenceBonus = int.Parse(GetValueForXML(xmlReader));
                                 break;
                         }
                     }
                     else
                     {
-                        if (xmlReader.Name == "Item")
+                        if (xmlReader.Name == "MainHand")
                         {
                             list.Add(item);
                             item = new MainHand();
@@ -267,22 +340,40 @@ namespace DataAccess
                         switch (xmlReader.Name)
                         {
                             case ("Name"):
-                                item.Name = GetValueXML(xmlReader);
+                                item.Name = GetValueForXML(xmlReader);
                                 break;
                             case ("BuyPrice"):
-                                item.BuyPrice = int.Parse(GetValueXML(xmlReader));
+                                item.BuyPrice = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("SellPrice"):
-                                item.SellPrice = int.Parse(GetValueXML(xmlReader));
+                                item.SellPrice = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("Description"):
-                                item.Description = GetValueXML(xmlReader);
+                                item.Description = GetValueForXML(xmlReader);
+                                break;
+                            case ("AttackBonus"):
+                                item.AttackBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("DefenceBonus"):
+                                item.DefenceBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("StrengthBonus"):
+                                item.StrengthBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("DexterityBonus"):
+                                item.DexterityBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("ConstitutionBonus"):
+                                item.ConstitutionBonus = int.Parse(GetValueForXML(xmlReader));
+                                break;
+                            case ("IntellegenceBonus"):
+                                item.IntellegenceBonus = int.Parse(GetValueForXML(xmlReader));
                                 break;
                         }
                     }
                     else
                     {
-                        if (xmlReader.Name == "Item")
+                        if (xmlReader.Name == "OffHand")
                         {
                             list.Add(item);
                             item = new OffHand();
@@ -306,19 +397,19 @@ namespace DataAccess
                     {
                         if (xmlReader.Name == "Name")
                         {
-                            mon.Name = GetValueXML(xmlReader);
+                            mon.Name = GetValueForXML(xmlReader);
                         }
                         else if (xmlReader.Name == "MaxHealthPoints")
                         {
-                            mon.MaxHealthPoints = double.Parse(GetValueXML(xmlReader));
+                            mon.MaxHealthPoints = double.Parse(GetValueForXML(xmlReader));
                         }
                         else if (xmlReader.Name == "Attack")
                         {
-                            mon.Attack = double.Parse(GetValueXML(xmlReader));
+                            mon.Attack = double.Parse(GetValueForXML(xmlReader));
                         }
                         else if (xmlReader.Name == "Defence")
                         {
-                            mon.Defence = double.Parse(GetValueXML(xmlReader));
+                            mon.Defence = double.Parse(GetValueForXML(xmlReader));
                         }
                     }
                     else
@@ -334,7 +425,7 @@ namespace DataAccess
             return list;
         }
 
-        private string GetValueXML(XmlReader xml)
+        private string GetValueForXML(XmlReader xml)
         {
             xml.Read();
             if (xml.NodeType == XmlNodeType.Text)

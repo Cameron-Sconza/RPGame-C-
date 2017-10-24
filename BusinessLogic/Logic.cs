@@ -56,54 +56,6 @@ namespace BusinessLogic
             data.SaveGame(character);
         }
 
-        public bool HitMiss()
-        {
-            if (RNG() > 11)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool Crit()
-        {
-            if (RNG() < 20)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool AIAction()
-        {
-            if (RNG() < 33)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool Flee()
-        {
-            if (RNG() < 70)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public double Damage(double dealerAttack, double recieverDefence, bool recieverIsDefending, bool crit)
         {
             if (recieverIsDefending)
@@ -126,23 +78,6 @@ namespace BusinessLogic
             {
                 return Math.Ceiling(dealerAttack / 1.15);
             }
-        }
-
-        public Character Looting(Character character, Monster monster)
-        {
-            Character c = character;
-            var monsterLoot = data.GetMonsterLoot().Where(ml => ml.MonsterID == monster.Name).FirstOrDefault();
-            c.CurrentExp += monsterLoot.ExpGain;
-            c.Gold += monsterLoot.GoldDrop;
-            c.Backpack.Add(monsterLoot.ItemDropOneID);
-            c.Backpack.Add(monsterLoot.ItemDropTwoID);
-            c.Backpack.Add(monsterLoot.ItemDropThreeID);
-            c.Backpack.Add(monsterLoot.ItemDropFourID);
-            if (c.CurrentExp > c.NextLevelExp)
-            {
-                c = LevelUp(c);
-            }
-            return c;
         }
 
         private Character LevelUp(Character c)
@@ -195,9 +130,9 @@ namespace BusinessLogic
             return data.GetMonster().Where(m => m.Name == monsterName).FirstOrDefault();
         }
 
-        public Item GrabItem(string itemName)
+        public Item GrabItem(Item item)
         {
-            return data.GetAllItems().Where(i => i.Name == itemName).FirstOrDefault();
+            return data.GetAllItems().Where(i => i == item).FirstOrDefault();
         }
 
         public List<Item> GetShopItemNames()

@@ -142,39 +142,7 @@ namespace RPGame_C_sharp
         static Character Forage(Character c)
         {
             Character character = c;
-            int RNGods = logic.RNG();
-            if (RNGods <= 10)
-            {
-                //Teasures beyond belief(?)
-                return character;
-            }
-            else if (RNGods > 10 && RNGods <= 25)
-            {
-                return character;
-            }
-            else if (RNGods > 25 && RNGods <= 40)
-            {
-                return character;
-            }
-            else if (RNGods > 40 && RNGods <= 55)
-            {
-                Console.Write("You found nothing of use.");
-                return character;
-            }
-            else if (RNGods > 55 && RNGods <= 70)
-            {
-                return character;
-            }
-            else if (RNGods > 70 && RNGods <= 85)
-            {
-                return character;
-            }
-            else if (RNGods > 85 && RNGods <= 100)
-            {
-                //Death or very close to it
-                return character;
-            }
-            else { Console.Write("An Error Occured. Returning to Hunting Screen.\n"); return c; }
+            return c;
         }
 
         static Character HuntMonsters(Character c)
@@ -201,35 +169,7 @@ namespace RPGame_C_sharp
 
         private static Character Fight(string monsterName, Character c)
         {
-            Monster mon = new Monster();
-            mon = logic.GetMonster(monsterName);
-            Character character = c;
-            bool flee = false;
-            do
-            {
-                bool AIAction = logic.AIAction();
-                int choice = BasicMenu("Your Health: " + character.CurrentHealthPoints + mon.Name + ": " +
-                    mon.CurrentHealthPoints + "\nWhat will you do?\n\t1. Attack.\n\t2. Defend. \n\t3. Flee.\n", 3);
-                switch (choice)
-                {
-                    case (1):
-                        mon.CurrentHealthPoints -= logic.Damage(c.Attack, mon.Defence, AIAction, logic.Crit());
-                        character.CurrentHealthPoints -= logic.Damage(mon.Attack, character.Defence, false, logic.Crit());
-                        break;
-                    case (2):
-                        mon.CurrentHealthPoints -= logic.Damage(c.Attack, mon.Defence, AIAction, logic.Crit());
-                        character.CurrentHealthPoints -= logic.Damage(mon.Attack, character.Defence, true, logic.Crit());
-                        break;
-                    case (3):
-                        flee = logic.Flee();
-                        break;
-                }
-            } while ((character.CurrentHealthPoints > 0 && mon.CurrentHealthPoints > 0) || flee == true);
-            if (character.CurrentHealthPoints > 0)
-            {
-                return logic.Looting(character, mon);
-            }
-            else { return null; }
+            return null;
         }
 
         private static Character Shop(Character c)
@@ -259,16 +199,16 @@ namespace RPGame_C_sharp
             do
             {
                 Console.WriteLine("Current Gold:" + character.Gold);
-                int choice = StoreMenu("Please select an item to Sell.", character.Backpack);
-                if (choice > character.Backpack.Count)
+                int choice = StoreMenu("Please select an item to Sell.", character.ItemBackpack);
+                if (choice > character.ItemBackpack.Count)
                 {
                     isSellingItems = false;
                 }
                 else
                 {
-                    Item item = logic.GrabItem(character.Backpack[choice-1]);
+                    Item item = logic.GrabItem(character.ItemBackpack[choice-1]);
                     character.Gold += item.SellPrice;
-                    character.Backpack.Remove(item.Name);
+                    character.ItemBackpack.Remove(item);
                 }
             } while (isSellingItems);
             return character;
@@ -298,7 +238,7 @@ namespace RPGame_C_sharp
                     else
                     {
                         character.Gold -= item.BuyPrice;
-                        character.Backpack.Add(item.Name);
+                        character.ItemBackpack.Add(item);
                     }
                 }
             } while (isBuyingItems);

@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RecipeList>
+	<Recipe>
+		<Name>Iron Ingot</Name>
+		<CraftingTime>30</CraftingTime>
+		<Difficulty>1</Difficulty>
+		<Ingredent>
+			<Name>Iron Ore</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Leather</Name>
+		<CraftingTime>30</CraftingTime>
+		<Difficulty>1</Difficulty>
+		<Ingredent>
+			<Name>Hide</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Treated Wood</Name>
+		<CraftingTime>30</CraftingTime>
+		<Difficulty>1</Difficulty>
+		<Ingredent>
+			<Name>Wood</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Practice Sword</Name>
+		<CraftingTime>60</CraftingTime>
+		<Difficulty>1</Difficulty>
+		<Ingredent>
+			<Name>Wood</Name>
+			<Quantity>4</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Practice Dagger</Name>
+		<CraftingTime>60</CraftingTime>
+		<Difficulty>1</Difficulty>
+		<Ingredent>
+			<Name>Wood</Name>
+			<Quantity>3</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Practice Staff</Name>
+		<CraftingTime>60</CraftingTime>
+		<Difficulty>1</Difficulty>
+		<Ingredent>
+			<Name>Wood</Name>
+			<Quantity>4</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Iron Sword</Name>
+		<CraftingTime>120</CraftingTime>
+		<Difficulty>2</Difficulty>
+		<Ingredent>
+			<Name>Wood</Name>
+			<Quantity>1</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Iron Ore</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Iron Dagger</Name>
+		<CraftingTime>120</CraftingTime>
+		<Difficulty>2</Difficulty>
+		<Ingredent>
+			<Name>Wood</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Iron Ore</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Iron Staff</Name>
+		<CraftingTime>120</CraftingTime>
+		<Difficulty>2</Difficulty>
+		<Ingredent>
+			<Name>Iron Ore</Name>
+			<Quantity>4</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Steel Sword</Name>
+		<CraftingTime>360</CraftingTime>
+		<Difficulty>3</Difficulty>
+		<Ingredent>
+			<Name>Iron Ingot</Name>
+			<Quantity>4</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Leather</Name>
+			<Quantity>1</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Steel Dagger</Name>
+		<CraftingTime>360</CraftingTime>
+		<Difficulty>3</Difficulty>
+		<Ingredent>
+			<Name>Iron Ingot</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Wood</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Leather</Name>
+			<Quantity>1</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Battle Staff</Name>
+		<CraftingTime>360</CraftingTime>
+		<Difficulty>3</Difficulty>
+		<Ingredent>
+			<Name>Iron Ingot</Name>
+			<Quantity>3</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Wood</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Leather</Name>
+			<Quantity>1</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Silver Sword</Name>
+		<CraftingTime>720</CraftingTime>
+		<Difficulty>4</Difficulty>
+		<Ingredent>
+			<Name>Iron Ingot</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Treated Wood</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Leather</Name>
+			<Quantity>1</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Silver Ore</Name>
+			<Quantity>3</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Silver Dagger</Name>
+		<CraftingTime>720</CraftingTime>
+		<Difficulty>4</Difficulty>
+		<Ingredent>
+			<Name>Iron Ingot</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Treated Wood</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Leather</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Silver Ore</Name>
+			<Quantity>5</Quantity>
+		</Ingredent>
+	</Recipe>
+	<Recipe>
+		<Name>Enchanted Staff</Name>
+		<CraftingTime>720</CraftingTime>
+		<Difficulty>4</Difficulty>
+		<Ingredent>
+			<Name>Iron Ingot</Name>
+			<Quantity>3</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Treated Wood</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Leather</Name>
+			<Quantity>2</Quantity>
+		</Ingredent>
+		<Ingredent>
+			<Name>Silver Ore</Name>
+			<Quantity>3</Quantity>
+		</Ingredent>
+	</Recipe>
+</RecipeList>
