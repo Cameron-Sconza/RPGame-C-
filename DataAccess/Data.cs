@@ -9,60 +9,42 @@ namespace DataAccess
     public class Data
     {
         private static string filePath = "C:\\Users\\Onshore\\Documents\\Visual Studio 2017\\Projects\\RPGame C-sharp\\";
+        private static XmlWriterSettings xmlWriterSettings = new XmlWriterSettings() { Indent = true, IndentChars = "\t", NewLineOnAttributes = true, NewLineChars = "\n" };
+        private static XmlReaderSettings xmlReaderSettings = new XmlReaderSettings() { IgnoreComments = true, IgnoreWhitespace = true };
 
-        public void SaveGame(Character character)
+        public void SaveGame(Player Player)
         {
-            XmlWriter xmlWriter = XmlWriter.Create(filePath + "Save.xml");
+            XmlWriter xmlWriter = XmlWriter.Create(filePath + "Save.xml", xmlWriterSettings);
             using (xmlWriter)
             {
                 xmlWriter.WriteStartDocument();
-                xmlWriter.WriteStartElement("Character");
-                xmlWriter.WriteElementString("Name", character.Name);
-                xmlWriter.WriteElementString("CharacterClass", character.CharacterClass);
-                xmlWriter.WriteElementString("Strength", character.Strength.ToString());
-                xmlWriter.WriteElementString("Dexterity", character.Dexterity.ToString());
-                xmlWriter.WriteElementString("Constitution", character.Constitution.ToString());
-                xmlWriter.WriteElementString("Intellegence", character.Intellegence.ToString());
-                xmlWriter.WriteElementString("Gold", character.Gold.ToString());
-                xmlWriter.WriteElementString("Level", character.Level.ToString());
-                xmlWriter.WriteElementString("CurrentExp", character.CurrentExp.ToString());
-                xmlWriter.WriteElementString("NextLevelExp", character.NextLevelExp.ToString());
-                xmlWriter.WriteElementString("Armour", character.Armour.Name);
-                xmlWriter.WriteElementString("OffHand", character.OffHand.Name);
-                xmlWriter.WriteElementString("MainHand", character.MainHand.Name);
-                xmlWriter.WriteStartElement("ArmourBackpack");
-                if (character.ArmourBackpack != null)
+                xmlWriter.WriteStartElement("Player");
+                xmlWriter.WriteElementString("Name", Player.Name);
+                xmlWriter.WriteElementString("Gold", Player.Gold.ToString());
+                xmlWriter.WriteStartElement("Mercenaries");
+                if (Player.Mercenaries != null)
                 {
-                    foreach (var item in character.ArmourBackpack)
+                    foreach (var merc in Player.Mercenaries)
                     {
-                        xmlWriter.WriteElementString("Item", item.Name);
+                        xmlWriter.WriteElementString("Item", merc.Name);
                     }
                 }
                 xmlWriter.WriteEndElement();
                 xmlWriter.WriteStartElement("ItemBackpack");
-                if (character.ItemBackpack != null)
+                if (Player.ItemBackpack != null)
                 {
-                    foreach (var item in character.ItemBackpack)
+                    foreach (var item in Player.ItemBackpack)
                     {
                         xmlWriter.WriteElementString("Item", item.Name);
                     }
                 }
                 xmlWriter.WriteEndElement();
-                xmlWriter.WriteStartElement("MainHandBackpack");
-                if (character.MainHandBackpack != null)
+                xmlWriter.WriteStartElement("EquipmentBackpack");
+                if (Player.EquipmentBackpack != null)
                 {
-                    foreach (var item in character.MainHandBackpack)
+                    foreach (var equipment in Player.EquipmentBackpack)
                     {
-                        xmlWriter.WriteElementString("Item", item.Name);
-                    }
-                }
-                xmlWriter.WriteEndElement();
-                xmlWriter.WriteStartElement("OffHandBackpack");
-                if (character.OffHandBackpack != null)
-                {
-                    foreach (var item in character.OffHandBackpack)
-                    {
-                        xmlWriter.WriteElementString("Item", item.Name);
+                        xmlWriter.WriteElementString("Item", equipment.Name);
                     }
                 }
                 xmlWriter.WriteEndElement();
@@ -71,10 +53,10 @@ namespace DataAccess
             }
         }
 
-        public Character LoadGame()
+        public Player LoadGame()
         {
-            Character character = new Character();
-            XmlReader xmlReader = XmlReader.Create(filePath + "Save.xml");
+            Player Player = new Player();
+            XmlReader xmlReader = XmlReader.Create(filePath + "Save.xml", xmlReaderSettings);
             using (xmlReader)
             {
                 while (xmlReader.Read())
@@ -84,80 +66,41 @@ namespace DataAccess
                         switch (xmlReader.Name)
                         {
                             case ("Name"):
-                                character.Name = GetValueForXML(xmlReader);
-                                break;
-                            case ("CharacterClass"):
-                                character.CharacterClass = GetValueForXML(xmlReader);
-                                break;
-                            case ("Level"):
-                                character.Level = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("Strength"):
-                                character.Strength = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("Dexterity"):
-                                character.Dexterity = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("Constitution"):
-                                character.Constitution = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("Intellegence"):
-                                character.Intellegence = int.Parse(GetValueForXML(xmlReader));
+                                Player.Name = GetValueForXML(xmlReader);
                                 break;
                             case ("Gold"):
-                                character.Gold = int.Parse(GetValueForXML(xmlReader));
+                                Player.Gold = int.Parse(GetValueForXML(xmlReader));
                                 break;
-                            case ("CurrentExp"):
-                                character.CurrentExp = double.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("NextLevelExp"):
-                                character.NextLevelExp = double.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("MainHand"):
-                                character.MainHand = GetAllMainHands().Where(m => m.Name == GetValueForXML(xmlReader)).FirstOrDefault();
-                                break;
-                            case ("OffHand"):
-                                character.OffHand = GetAllOffHands().Where(m => m.Name == GetValueForXML(xmlReader)).FirstOrDefault();
-                                break;
-                            case ("Armour"):
-                                character.Armour = GetAllArmours().Where(m => m.Name == GetValueForXML(xmlReader)).FirstOrDefault();
-                                break;
-                            case ("ArmourBackpack"):
-                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "OffHandBackpack")
+                            case ("Mercenaries"):
+                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "Mercenaries")
                                 {
                                     if (xmlReader.NodeType != XmlNodeType.EndElement)
                                     {
-                                        character.ArmourBackpack.Add(GetAllArmours().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
+                                        switch (xmlReader.Name)
+                                        {
+                                            case (""):
+                                                break;
+                                        }
                                     }
                                     xmlReader.Read();
                                 }
                                 break;
                             case ("ItemBackpack"):
-                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "OffHandBackpack")
+                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "ItemBackpack")
                                 {
                                     if (xmlReader.NodeType != XmlNodeType.EndElement)
                                     {
-                                        character.ItemBackpack.Add(GetAllItems().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
+                                        Player.ItemBackpack.Add(GetAllItems().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
                                     }
                                     xmlReader.Read();
                                 }
                                 break;
-                            case ("MainHandBackpack"):
-                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "OffHandBackpack")
+                            case ("EquipmentBackpack"):
+                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "EquipmentBackpack")
                                 {
                                     if (xmlReader.NodeType != XmlNodeType.EndElement)
                                     {
-                                        character.MainHandBackpack.Add(GetAllMainHands().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
-                                    }
-                                    xmlReader.Read();
-                                }
-                                break;
-                            case ("OffHandBackpack"):
-                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "OffHandBackpack")
-                                {
-                                    if (xmlReader.NodeType != XmlNodeType.EndElement)
-                                    {
-                                        character.OffHandBackpack.Add(GetAllOffHands().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
+                                        Player.EquipmentBackpack.Add(GetAllEquipment().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
                                     }
                                     xmlReader.Read();
                                 }
@@ -166,72 +109,19 @@ namespace DataAccess
                     }
                 }
             }
-            if (character.Name != null) { return character; }
+            if (Player.Name != null) { return Player; }
             else { return null; }
         }
 
-        public List<Armour> GetAllArmours()
+        private List<Equipment> GetAllEquipment()
         {
-            List<Armour> list = new List<Armour>();
-            XmlReader xmlReader = XmlReader.Create(filePath + "Armours.xml");
-            using (xmlReader)
-            {
-                Armour item = new Armour();
-                while (xmlReader.Read())
-                {
-                    if (xmlReader.NodeType != XmlNodeType.EndElement)
-                    {
-                        switch (xmlReader.Name)
-                        {
-                            case ("Name"):
-                                item.Name = GetValueForXML(xmlReader);
-                                break;
-                            case ("BuyPrice"):
-                                item.BuyPrice = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("SellPrice"):
-                                item.SellPrice = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("Description"):
-                                item.Description = GetValueForXML(xmlReader);
-                                break;
-                            case ("AttackBonus"):
-                                item.AttackBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("DefenceBonus"):
-                                item.DefenceBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("StrengthBonus"):
-                                item.StrengthBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("DexterityBonus"):
-                                item.DexterityBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("ConstitutionBonus"):
-                                item.ConstitutionBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("IntellegenceBonus"):
-                                item.IntellegenceBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        if (xmlReader.Name == "Armour")
-                        {
-                            list.Add(item);
-                            item = new Armour();
-                        }
-                    }
-                }
-            }
-            return list;
+            throw new NotImplementedException();
         }
 
         public List<Item> GetAllItems()
         {
             List<Item> list = new List<Item>();
-            XmlReader xmlReader = XmlReader.Create(filePath + "Items.xml");
+            XmlReader xmlReader = XmlReader.Create(filePath + "Items.xml", xmlReaderSettings);
             using (xmlReader)
             {
                 Item item = new Item();
@@ -268,126 +158,10 @@ namespace DataAccess
             return list;
         }
 
-        public List<MainHand> GetAllMainHands()
-        {
-            List<MainHand> list = new List<MainHand>();
-            XmlReader xmlReader = XmlReader.Create(filePath + "MainHands.xml");
-            using (xmlReader)
-            {
-                MainHand item = new MainHand();
-                while (xmlReader.Read())
-                {
-                    if (xmlReader.NodeType != XmlNodeType.EndElement)
-                    {
-                        switch (xmlReader.Name)
-                        {
-                            case ("Name"):
-                                item.Name = GetValueForXML(xmlReader);
-                                break;
-                            case ("BuyPrice"):
-                                item.BuyPrice = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("SellPrice"):
-                                item.SellPrice = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("Description"):
-                                item.Description = GetValueForXML(xmlReader);
-                                break;
-                            case ("AttackBonus"):
-                                item.AttackBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("DefenceBonus"):
-                                item.DefenceBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("StrengthBonus"):
-                                item.StrengthBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("DexterityBonus"):
-                                item.DexterityBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("ConstitutionBonus"):
-                                item.ConstitutionBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("IntellegenceBonus"):
-                                item.IntellegenceBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        if (xmlReader.Name == "MainHand")
-                        {
-                            list.Add(item);
-                            item = new MainHand();
-                        }
-                    }
-                }
-            }
-            return list;
-        }
-
-        public List<OffHand> GetAllOffHands()
-        {
-            List<OffHand> list = new List<OffHand>();
-            XmlReader xmlReader = XmlReader.Create(filePath + "OffHands.xml");
-            using (xmlReader)
-            {
-                OffHand item = new OffHand();
-                while (xmlReader.Read())
-                {
-                    if (xmlReader.NodeType != XmlNodeType.EndElement)
-                    {
-                        switch (xmlReader.Name)
-                        {
-                            case ("Name"):
-                                item.Name = GetValueForXML(xmlReader);
-                                break;
-                            case ("BuyPrice"):
-                                item.BuyPrice = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("SellPrice"):
-                                item.SellPrice = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("Description"):
-                                item.Description = GetValueForXML(xmlReader);
-                                break;
-                            case ("AttackBonus"):
-                                item.AttackBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("DefenceBonus"):
-                                item.DefenceBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("StrengthBonus"):
-                                item.StrengthBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("DexterityBonus"):
-                                item.DexterityBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("ConstitutionBonus"):
-                                item.ConstitutionBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                            case ("IntellegenceBonus"):
-                                item.IntellegenceBonus = int.Parse(GetValueForXML(xmlReader));
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        if (xmlReader.Name == "OffHand")
-                        {
-                            list.Add(item);
-                            item = new OffHand();
-                        }
-                    }
-                }
-            }
-            return list;
-        }
-
         public List<Monster> GetMonster()
         {
             List<Monster> list = new List<Monster>();
-            XmlReader xmlReader = XmlReader.Create(filePath + "Monster.xml");
+            XmlReader xmlReader = XmlReader.Create(filePath + "Monster.xml", xmlReaderSettings);
             using (xmlReader)
             {
                 Monster mon = new Monster();

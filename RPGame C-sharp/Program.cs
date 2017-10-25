@@ -30,83 +30,50 @@ namespace RPGame_C_sharp
             } while (appIsRunning);
         }
 
-        static void LoadGame()
+        private static void LoadGame()
         {
-            Character character = logic.LoadGame();
-            if (character != null)
+            Player Player = logic.LoadGame();
+            if (Player != null)
             {
-                PlayGame(character);
+                PlayGame(Player);
             }
             else { Console.WriteLine("No Saved Data.\nReturning to Main Menu."); Thread.Sleep(1000); }
         }
 
-        static void NewGame()
+        private static void NewGame()
         {
-            Console.Clear();
-            Character character = new Character { Level = 1, CurrentExp = 0, NextLevelExp = 10 };
-            Console.Write("Welcome to Character Creation.\n\nWhat is Your Name?\n");
-            character.Name = Console.ReadLine();
-            int choice = BasicMenu("Please Select a Class From Below.\n1. Warrior.\n2. Rogue.\n3. Wizard.\n", 3);
-            if (choice == 1)
+            Player player = new Player
             {
-                character.CharacterClass = "Warrior";
-                character.Strength = 8;
-                character.Dexterity = 5;
-                character.Constitution = 6;
-                character.Intellegence = 3;
-            }
-            else if (choice == 2)
-            {
-                character.CharacterClass = "Rogue";
-                character.Strength = 5;
-                character.Dexterity = 9;
-                character.Constitution = 6;
-                character.Intellegence = 5;
-            }
-            else if (choice == 3)
-            {
-                character.CharacterClass = "Wizard";
-                character.Strength = 4;
-                character.Dexterity = 4;
-                character.Constitution = 5;
-                character.Intellegence = 12;
-            }
-            character.Attack = logic.CalculateAttack(character.Strength, character.Dexterity, character.Intellegence, character.CharacterClass);
-            character.Defence = logic.CalculateDefence(character.Strength, character.Dexterity);
-            character.MaxHealthPoints = logic.CalculateMaxHealthPoints(character.Level, character.Strength, character.Dexterity, character.Constitution);
-            character.CurrentHealthPoints = character.MaxHealthPoints;
-            PlayGame(character);
+                Name = Prompt("What Is Your Name?"),
+                Gold = 500
+            };
+            Console.WriteLine("You Will Be Redirected to Hire Your First Mercenary Shortly.\nWithout Any Mercenaries, You Will Not Be Able to Do Much.");
+            Thread.Sleep(1750);
+            player.Mercenaries.Add(HireMerc(player));
+            PlayGame(player);
         }
 
-        static void PlayGame(Character character)
+        private static void PlayGame(Player p)
         {
             bool isPlaying = true;
-            Character c = character;
+            Player player = p;
             do
             {
                 Console.Clear();
-                int choice = BasicMenu("Current Health: " + character.CurrentHealthPoints + "\n\nWhat Would You Like to Do?\n\t1. Save.\n\t2. Hunt.\n\t3. Rest.\n\t4. Shop.\n\t5. Quit.\n", 5);
+                int choice = BasicMenu("What Would You Like to Do?\n\t1. Save.\n\t2. View Mercenaries.\n\t3. Craft.\n\t4. Shop.\n\t5. Quit.\n", 5);
                 switch (choice)
                 {
                     case (1):
-                        logic.SaveGame(c);
+                        logic.SaveGame(player);
                         break;
                     case (2):
-                        c = Hunt(c);
-                        if (c == null)
-                        {
-                            Console.WriteLine("You Have Died.");
-                            Thread.Sleep(3);
-                            isPlaying = false;
-                        }
+                        player = MercMenu(player);
                         break;
                     case (3):
-                        c.CurrentHealthPoints = c.MaxHealthPoints;
-                        Console.Write("\nYou feel Refeshed After a Night at the Inn.\n");
-                        Thread.Sleep(1000);
+                        player = CraftingMenu(player);
                         break;
                     case (4):
-                        c = Shop(c);
+                        player = ShopMenu(player);
                         break;
                     case (5):
                         isPlaying = false;
@@ -115,137 +82,228 @@ namespace RPGame_C_sharp
             } while (isPlaying);
         }
 
-        static Character Hunt(Character c)
+        private static Player CraftingMenu(Player p)
         {
-            Character character = c;
-            bool isHunting = true;
+            bool isCrafting = true;
+            Player player = p;
             do
             {
-                int choice = BasicMenu("What Would You Like To Hunt?\n\t1. Forage For Stuff.\n\t2. Fight Monsters.\n\t3. Back.\n", 3);
+                Console.Clear();
+                int choice = BasicMenu("What Would You Like to Do?\n\t1. Craft Weapons.\n\t2. Craft Armour.\n\t3. Craft Potions.\n\t4. Back.\n", 4);
                 switch (choice)
                 {
                     case (1):
-                        character = Forage(character);
+                        player = CraftWeapon(player);
                         break;
                     case (2):
-                        character = HuntMonsters(character);
+                        player = CraftArmour(player);
                         break;
                     case (3):
-                        isHunting = false;
+                        player = CraftPotion(player);
                         break;
-                }
-                if (character == null) { return null; }
-            } while (isHunting);
-            return character;
-        }
-
-        static Character Forage(Character c)
-        {
-            Character character = c;
-            return c;
-        }
-
-        static Character HuntMonsters(Character c)
-        {
-            bool isHuntingMonsters = true;
-            do
-            {
-                int choice = BasicMenu("Which Monster do you plan to hunt and possible kill?\n\t1. Goblin.\n\t2. Hobgoblin.\n\t3. Ogre.\n\t4. Nevermind.\n", 4);
-                switch (choice)
-                {
-                    case (1):
-                        return Fight("Goblin", c);
-                    case (2):
-                        return Fight("Hobgoblin", c);
-                    case (3):
-                        return Fight("Ogre", c);
                     case (4):
-                        isHuntingMonsters = false;
+                        isCrafting = false;
                         break;
                 }
-            } while (isHuntingMonsters);
-            return c;
+            } while (isCrafting);
+            return player;
         }
 
-        private static Character Fight(string monsterName, Character c)
+        private static Player CraftPotion(Player player)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
-        private static Character Shop(Character c)
+        private static Player CraftArmour(Player player)
         {
-            bool isShopping = true;
+            throw new NotImplementedException();
+        }
+
+        private static Player CraftWeapon(Player player)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static Player MercMenu(Player p)
+        {
+            bool isPlaying = true;
+            Player player = p;
             do
             {
-                int choice = BasicMenu("What Would you like to do in the market?\n\t1. Buy.\n\t2. Sell.\n\t3.Leave.\n", 3);
+                Console.Clear();
+                int choice = BasicMenu("What Would You Like to Do?\n\t1. Hire Mercenary.\n\t2. Fire Mercenary.\n\t3. View Mercenaries.\n\t4. Send Mercenary On A Quest.\n\t5. Quit.\n", 5);
                 switch (choice)
                 {
                     case (1):
-                        return Buy(c);
+                        player.Mercenaries.Add(HireMerc(player));
+                        break;
                     case (2):
-                        return Sell(c);
+                        player.Mercenaries.Remove(FireMerc(player));
+                        break;
                     case (3):
-                        isShopping = false;
+                        ViewMerc(player);
+                        break;
+                    case (4):
+                        player = Quest(player);
+                        break;
+                    case (5):
+                        isPlaying = false;
                         break;
                 }
-            } while (isShopping);
-            return c;
+            } while (isPlaying);
+            return player;
         }
 
-        private static Character Sell(Character c)
+        private static Player Quest(Player player)
         {
-            Character character = c;
-            bool isSellingItems = true;
+            throw new NotImplementedException();
+        }
+
+        private static void ViewMerc(Player player)
+        {
+            foreach (var merc in player.Mercenaries)
+            {
+                Console.WriteLine("Name: "+merc.Name+"\tHeathPoints: "+merc.CurrentHealthPoints +'/'+ merc.MaxHealthPoints +
+                    "\nStrength: "+ merc.Strength +"\tDexterity: "+merc.Dexterity+"\tIntellegence: "+merc.Intellegence+
+                    "\nAttack: "+merc.Attack+"\tDefence"+merc.Defence+"\tExp: "+merc.CurrentExp+'/'+merc.NextLevelExp + '\n');
+            }
+            Prompt("Hit Enter to Leave.");
+        }
+
+        private static Mercenary FireMerc(Player player)
+        {
+            int i = 1;
+            foreach (var merc in player.Mercenaries)
+            {
+                Console.WriteLine(i + ".\tName: " + merc.Name + "\n\tProfession: " + merc.Profession + "\n\tLevel: " + merc.Level);
+                i++;
+            }
+            int choice = BasicMenu("Please Select a Merc To Fire.\nOr Enter A Number Up to 3 Higher then Shown to Cancel.", player.Mercenaries.Count + 3);
+            try
+            {
+                return player.Mercenaries[choice - 1];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return Mercenary.Empty;
+            }
+        }
+
+        static Mercenary HireMerc(Player player)
+        {
+            int mercCost = 100 * ((int)Math.Pow(player.Mercenaries.Count, 2));
+            if (player.Gold > mercCost)
+            {
+                int choice = BasicMenu("What is The Mercenaries Profession?\n\t1. Warrior.\n\t2. Rogue\n\t3. Mage\n", 3);
+                Mercenary Merc = Mercenary.Empty;
+                switch (choice)
+                {
+                    case (1):
+                        Merc = new Mercenary()
+                        {
+                            Name = Prompt("What Shall Thier Name Be?"),
+                            Profession = "Warrior",
+                            Level = 1,
+                            Intellegence = 4,
+                            Strength = 8,
+                            Dexterity = 6,
+                            Constitution = 7,
+                            NextLevelExp = 25,
+                            CurrentExp = 0,
+                        };
+                        Merc.Attack = logic.CalculateAttack(Merc);
+                        Merc.Defence = logic.CalculateDefence(Merc);
+                        Merc.MaxHealthPoints = logic.CalculateMaxHealthPoints(Merc);
+                        Merc.CurrentHealthPoints = Merc.MaxHealthPoints;
+                        break;
+                    case (2):
+                        Merc = new Mercenary()
+                        {
+                            Name = Prompt("What Shall Thier Name Be?"),
+                            Profession = "Rogue",
+                            Level = 1,
+                            Intellegence = 4,
+                            Strength = 8,
+                            Dexterity = 6,
+                            Constitution = 7,
+                            NextLevelExp = 25,
+                            CurrentExp = 0,
+                        };
+                        Merc.Attack = logic.CalculateAttack(Merc);
+                        Merc.Defence = logic.CalculateDefence(Merc);
+                        Merc.MaxHealthPoints = logic.CalculateMaxHealthPoints(Merc);
+                        Merc.CurrentHealthPoints = Merc.MaxHealthPoints;
+                        break;
+                    case (3):
+                        Merc = new Mercenary()
+                        {
+                            Name = Prompt("What Shall Thier Name Be?"),
+                            Profession = "Mage",
+                            Level = 1,
+                            Intellegence = 4,
+                            Strength = 8,
+                            Dexterity = 6,
+                            Constitution = 7,
+                            NextLevelExp = 25,
+                            CurrentExp = 0,
+                        };
+                        Merc.Attack = logic.CalculateAttack(Merc);
+                        Merc.Defence = logic.CalculateDefence(Merc);
+                        Merc.MaxHealthPoints = logic.CalculateMaxHealthPoints(Merc);
+                        Merc.CurrentHealthPoints = Merc.MaxHealthPoints;
+                        break;
+                }
+                return Merc;
+            }
+            else
+            {
+                Console.WriteLine("You Dont Have Enough Gold to Hire A Mercenary.");
+                Thread.Sleep(1750);
+                return null;
+            }
+        }
+
+        private static Player ShopMenu(Player p)
+        {
+            bool isPlaying = true;
+            Player player = p;
             do
             {
-                Console.WriteLine("Current Gold:" + character.Gold);
-                int choice = StoreMenu("Please select an item to Sell.", character.ItemBackpack);
-                if (choice > character.ItemBackpack.Count)
+                Console.Clear();
+                int choice = BasicMenu("What Would You Like to Do?\n\t1. Buy.\n\t2. Sell.\n\t3. Quit.\n", 3);
+                switch (choice)
                 {
-                    isSellingItems = false;
+                    case (1):
+                        player = BuyMenu(player);
+                        break;
+                    case (2):
+                        player = SellMenu(player);
+                        break;
+                    case (3):
+                        isPlaying = false;
+                        break;
                 }
-                else
-                {
-                    Item item = logic.GrabItem(character.ItemBackpack[choice-1]);
-                    character.Gold += item.SellPrice;
-                    character.ItemBackpack.Remove(item);
-                }
-            } while (isSellingItems);
-            return character;
+            } while (isPlaying);
+            return player;
         }
 
-        private static Character Buy(Character c)
+        private static Player SellMenu(Player player)
         {
-            Character character = c;
-            List<Item> list = logic.GetShopItemNames();
-            bool isBuyingItems = true;
-            do
-            {
-                Console.WriteLine("Current Gold:" + character.Gold);
-                int choice = StoreMenu("Please select an item to Buy.\n", list);
-                if (choice > list.Count)
-                {
-                    isBuyingItems = false;
-                }
-                else
-                {
-                    Item item = list[choice-1];
-                    if ((character.Gold - item.BuyPrice) < 0)
-                    {
-                        Console.WriteLine("Not Enough Gold.");
-                        Thread.Sleep(750);
-                    }
-                    else
-                    {
-                        character.Gold -= item.BuyPrice;
-                        character.ItemBackpack.Add(item);
-                    }
-                }
-            } while (isBuyingItems);
-            return character;
+            throw new NotImplementedException();
         }
 
-        static int BasicMenu(string text, int numOfChoices)
+        private static Player BuyMenu(Player player)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static string Prompt(string text)
+        {
+            Console.WriteLine(text);
+            return Console.ReadLine();
+        }
+
+        private static int BasicMenu(string text, int numOfChoices)
         {
             int choice;
             int fail = 0;
@@ -260,50 +318,6 @@ namespace RPGame_C_sharp
                 int.TryParse(Console.ReadLine(), out choice);
                 fail++;
             } while (!(choice > 0 && choice <= numOfChoices) || choice == 0);
-            return choice;
-        }
-
-        static int StoreMenu(string text, List<Item> list)
-        {
-            List<Item> itemList = list;
-            int choice;
-            int fail = 0;
-            do
-            {
-                for (int i = 0; i < itemList.Count; i++)
-                {
-                    Console.WriteLine((i + 1) + ".\t Item: " + itemList[i].Name + ".\n\t Price: " + itemList[i].BuyPrice);
-                }
-                Console.WriteLine(text + "\nOr Enter a Number Higher than Displayed to Leave.");
-                if (fail > 3)
-                {
-                    Console.WriteLine("Please Use a Numerical Value.\n(Handles up to +20 of displayed.)");
-                }
-                int.TryParse(Console.ReadLine(), out choice);
-                fail++;
-            } while (!(choice > 0 && choice < (list.Count + 20)) || choice == 0);
-            return choice;
-        }
-
-        static int StoreMenu(string text, List<string> list)
-        {
-            List<string> itemList = list;
-            int choice;
-            int fail = 0;
-            do
-            {
-                for (int i = 0; i < itemList.Count; i++)
-                {
-                    Console.WriteLine((i + 1) + ".\tItem: " + itemList[i]);
-                }
-                Console.WriteLine(text + "\nOr Enter a Number Higher than Your Inventory Count to Leave.");
-                if (fail > 3)
-                {
-                    Console.WriteLine("Please Use a Numerical Value.\n(Handles up to +20 of displayed.)");
-                }
-                int.TryParse(Console.ReadLine(), out choice);
-                fail++;
-            } while (!(choice > 0 && choice < (list.Count + 20)) || choice == 0);
             return choice;
         }
     }

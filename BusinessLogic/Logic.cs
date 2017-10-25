@@ -10,58 +10,47 @@ namespace BusinessLogic
     public class Logic
     {
         public static Data data = new Data();
-        public Character LoadGame()
+        public Player LoadGame()
         {
-            Character character = data.LoadGame();
-            if (character == null)
-            {
-                return null;
-            }
-            character.Attack = CalculateAttack(character.Strength, character.Dexterity, character.Intellegence, character.CharacterClass);
-            character.Defence = CalculateDefence(character.Strength, character.Dexterity);
-            character.MaxHealthPoints = CalculateMaxHealthPoints(character.Level, character.Strength, character.Dexterity, character.Constitution);
-            character.CurrentHealthPoints = character.MaxHealthPoints;
-            return character;
+            Player Player = data.LoadGame();
+            if (Player == null) { return null; }
+            else { return Player; }
         }
 
-        public double CalculateAttack(int strength, int dexterity, int intellegence, string characterClass)
+        public double CalculateAttack(Mercenary mercenary)
         {
-            if (characterClass == "Rogue")
+            if (mercenary.Profession == "Rogue")
             {
-                return Math.Ceiling(a: (((dexterity * 2) / 3) + (strength * 0.5) + 2));
+                return Math.Ceiling(a: (((mercenary.Dexterity * 2) / 3) + (mercenary.Strength * 0.5) + 2) + (0.6 * mercenary.Level));
             }
-            else if (characterClass == "Warrior")
+            else if (mercenary.Profession == "Warrior")
             {
-                return Math.Ceiling(a: (((strength * 2) / 3) + (dexterity * 0.5) + 3));
+                return Math.Ceiling(a: (((mercenary.Strength * 2) / 3) + (mercenary.Dexterity * 0.5) + 3) + (0.4 * mercenary.Level));
             }
-            else if (characterClass == "Wizard")
+            else if (mercenary.Profession == "Mage")
             {
-                return Math.Ceiling(a: (((intellegence * 2) / 3) + 2));
+                return Math.Ceiling(a: (((mercenary.Intellegence * 2) / 3) + 2) + (0.8 * mercenary.Level));
             }
             else { return 0; }
         }
 
-        public double CalculateDefence(int strength, int dexterity)
+        public double CalculateDefence(Mercenary mercenary)
         {
-            return Math.Ceiling(a: (((strength + dexterity) / 1.5) + 2));
+            return Math.Ceiling(a: (((mercenary.Strength + mercenary.Dexterity) / 1.5) + 2));
         }
 
-        public double CalculateMaxHealthPoints(int level, int strength, int dexterity, int constitution)
+        public double CalculateMaxHealthPoints(Mercenary mercenary)
         {
-            return Math.Ceiling(a: ((((level * strength + (dexterity * level) / 4)) / 2) + (4 * constitution)));
+            return Math.Ceiling(a: ((((mercenary.Level * mercenary.Strength + (mercenary.Dexterity * mercenary.Level) / 4)) / 2) + (4 * mercenary.Constitution)));
         }
 
-        public void SaveGame(Character character)
+        public void SaveGame(Player Player)
         {
-            data.SaveGame(character);
+            data.SaveGame(Player);
         }
 
-        public double Damage(double dealerAttack, double recieverDefence, bool recieverIsDefending, bool crit)
+        public double Damage(double dealerAttack, double recieverDefence, bool crit)
         {
-            if (recieverIsDefending)
-            {
-                recieverDefence *= 2.00;
-            }
             if (crit)
             {
                 dealerAttack *= 2.50;
@@ -72,7 +61,7 @@ namespace BusinessLogic
             }
             else if (dealerAttack < recieverDefence)
             {
-                return Math.Ceiling(dealerAttack / 2.00);
+                return Math.Ceiling(dealerAttack / 3.00);
             }
             else
             {
@@ -80,40 +69,52 @@ namespace BusinessLogic
             }
         }
 
-        private Character LevelUp(Character c)
+        private Mercenary LevelUp(Mercenary mercenary)
         {
-            Character character = c;
-            character.Level++;
-            if (character.Level % 10 == 0)
+            Mercenary merc = mercenary;
+            merc.Level++;
+            merc.Constitution++;
+            if (merc.Level % 15 == 0)
             {
-                character.Strength++;
-                character.Dexterity++;
-                character.Intellegence++;
+                merc.Strength++;
+                merc.Dexterity++;
+                merc.Intellegence++;
             }
-            else if (character.Level % 5 == 0)
+            if (merc.Level % 10 == 0)
             {
-                character.Constitution++;
-                switch (character.CharacterClass)
+                merc.Constitution++;
+                switch (merc.Profession)
                 {
                     case ("Warrior"):
-                        character.Strength++;
+                        merc.Strength++;
                         break;
                     case ("Rogue"):
-                        character.Dexterity++;
+                        merc.Dexterity++;
                         break;
-                    case ("Wizard"):
-                        character.Intellegence++;
+                    case ("Mage"):
+                        merc.Intellegence++;
                         break;
                 }
             }
-            else
+            if (merc.Level % 5 == 0)
             {
-                character.Constitution++;
+                switch (merc.Profession)
+                {
+                    case ("Warrior"):
+                        merc.Strength++;
+                        break;
+                    case ("Rogue"):
+                        merc.Dexterity++;
+                        break;
+                    case ("Mage"):
+                        merc.Intellegence++;
+                        break;
+                }
             }
-            character.Attack = CalculateAttack(character.Strength, character.Dexterity, character.Intellegence, character.CharacterClass);
-            character.Defence = CalculateDefence(character.Strength, character.Dexterity);
-            character.MaxHealthPoints = CalculateMaxHealthPoints(character.Level, character.Strength, character.Dexterity, character.Constitution);
-            return character;
+            merc.Attack = CalculateAttack(merc);
+            merc.Defence = CalculateDefence(merc);
+            merc.MaxHealthPoints = CalculateMaxHealthPoints(merc);
+            return merc;
         }
 
         public int RNG()

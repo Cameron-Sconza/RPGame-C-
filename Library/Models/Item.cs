@@ -16,9 +16,6 @@
         public int DexterityBonus { get; set; }
         public int ConstitutionBonus { get; set; }
         public int IntellegenceBonus { get; set; }
+        public string ItemType { get; set; }
     }
-
-    public class Armour : Equipment { }
-    public class MainHand : Equipment { }
-    public class OffHand : Equipment { }
 }
