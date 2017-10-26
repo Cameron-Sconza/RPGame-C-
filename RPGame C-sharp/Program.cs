@@ -48,7 +48,7 @@ namespace RPGame_C_sharp
                 Gold = 500
             };
             Console.WriteLine("You Will Be Redirected to Hire Your First Mercenary Shortly.\nWithout Any Mercenaries, You Will Not Be Able to Do Much.");
-            Thread.Sleep(1750);
+            Thread.Sleep(1000);
             player.Mercenaries.Add(HireMerc(player));
             PlayGame(player);
         }
@@ -60,7 +60,7 @@ namespace RPGame_C_sharp
             do
             {
                 Console.Clear();
-                int choice = BasicMenu("What Would You Like to Do?\n\t1. Save.\n\t2. View Mercenaries.\n\t3. Craft.\n\t4. Shop.\n\t5. Quit.\n", 5);
+                int choice = BasicMenu("What Would You Like to Do?\n\t1. Save.\n\t2. Mercenary Menu.\n\t3. Craft Menu.\n\t4. Shop Menu.\n\t5. Quit.\n", 5);
                 switch (choice)
                 {
                     case (1):
@@ -131,7 +131,7 @@ namespace RPGame_C_sharp
             do
             {
                 Console.Clear();
-                int choice = BasicMenu("What Would You Like to Do?\n\t1. Hire Mercenary.\n\t2. Fire Mercenary.\n\t3. View Mercenaries.\n\t4. Send Mercenary On A Quest.\n\t5. Quit.\n", 5);
+                int choice = BasicMenu("What Would You Like to Do?\n\t1. Hire Mercenary.\n\t2. Fire Mercenary.\n\t3. View Your Mercenaries.\n\t4. Send A Mercenary On A Quest.\n\t5. Order A Mercenary to Rest.\n\t6. Quit.\n", 6);
                 switch (choice)
                 {
                     case (1):
@@ -147,11 +147,35 @@ namespace RPGame_C_sharp
                         player = Quest(player);
                         break;
                     case (5):
+                        player = OrderedRest(player);
+                        break;
+                    case (6):
                         isPlaying = false;
                         break;
                 }
             } while (isPlaying);
             return player;
+        }
+
+        private static Player OrderedRest(Player p)
+        {
+            Player player = p;
+            Console.Clear();
+            for (int i = 0; i < player.Mercenaries.Count; i++)
+            {
+                Console.WriteLine((i + 1) + ".\tName: " + player.Mercenaries[i].Name + "\n\tProfession: " + player.Mercenaries[i].Profession + "\n\tLevel: " + player.Mercenaries[i].Level);
+            }
+            int choice = BasicMenu("Please Select a Merc To Get Some Rest.\nOr Enter A Number Up to 3 Higher then Shown to Cancel.\n", player.Mercenaries.Count + 3);
+            try
+            {
+                choice--;
+                player.Mercenaries[choice].CurrentHealthPoints = player.Mercenaries[choice].MaxHealthPoints;
+                return player;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return player;
+            }
         }
 
         private static Player Quest(Player player)
@@ -165,25 +189,24 @@ namespace RPGame_C_sharp
             {
                 Console.WriteLine("Name: "+merc.Name+"\tHeathPoints: "+merc.CurrentHealthPoints +'/'+ merc.MaxHealthPoints +
                     "\nStrength: "+ merc.Strength +"\tDexterity: "+merc.Dexterity+"\tIntellegence: "+merc.Intellegence+
-                    "\nAttack: "+merc.Attack+"\tDefence"+merc.Defence+"\tExp: "+merc.CurrentExp+'/'+merc.NextLevelExp + '\n');
+                    "\nAttack: "+merc.Attack+"\tDefence: "+merc.Defence+"\tExp: "+merc.CurrentExp+'/'+merc.NextLevelExp + '\n');
             }
             Prompt("Hit Enter to Leave.");
         }
 
         private static Mercenary FireMerc(Player player)
         {
-            int i = 1;
-            foreach (var merc in player.Mercenaries)
+            Console.Clear();
+            for(int i = 0; i < player.Mercenaries.Count; i++)
             {
-                Console.WriteLine(i + ".\tName: " + merc.Name + "\n\tProfession: " + merc.Profession + "\n\tLevel: " + merc.Level);
-                i++;
+                Console.WriteLine((i + 1) + ".\tName: " + player.Mercenaries[i].Name + "\n\tProfession: " + player.Mercenaries[i].Profession + "\n\tLevel: " + player.Mercenaries[i].Level);
             }
-            int choice = BasicMenu("Please Select a Merc To Fire.\nOr Enter A Number Up to 3 Higher then Shown to Cancel.", player.Mercenaries.Count + 3);
+            int choice = BasicMenu("Please Select a Merc To Fire.\nOr Enter A Number Up to 3 Higher then Shown to Cancel.\n", player.Mercenaries.Count + 3);
             try
             {
                 return player.Mercenaries[choice - 1];
             }
-            catch (IndexOutOfRangeException)
+            catch (ArgumentOutOfRangeException)
             {
                 return Mercenary.Empty;
             }
@@ -194,6 +217,7 @@ namespace RPGame_C_sharp
             int mercCost = 100 * ((int)Math.Pow(player.Mercenaries != null ? player.Mercenaries.Count : 0, 2));
             if (player.Gold > mercCost)
             {
+                Console.Clear();
                 int choice = BasicMenu("What is The Mercenaries Profession?\n\t1. Warrior.\n\t2. Rogue\n\t3. Mage\n", 3);
                 Mercenary Merc = Mercenary.Empty;
                 switch (choice)
@@ -240,8 +264,8 @@ namespace RPGame_C_sharp
                             Name = Prompt("What Shall Thier Name Be?"),
                             Profession = "Mage",
                             Level = 1,
-                            Intellegence = 12,
-                            Strength = 4,
+                            Intellegence = 13,
+                            Strength = 3,
                             Dexterity = 4,
                             Constitution = 5,
                             NextLevelExp = 25,
@@ -309,7 +333,6 @@ namespace RPGame_C_sharp
             int fail = 0;
             do
             {
-                Console.Clear();
                 Console.Write(text);
                 if (fail > 3)
                 {

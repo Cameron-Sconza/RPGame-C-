@@ -35,7 +35,7 @@ namespace BusinessLogic
             }
             else if (mercenary.Profession == "Mage")
             {
-                return Math.Ceiling(a: (((mercenary.Intellegence * 2) / 3) + 2) + (0.8 * mercenary.Level));
+                return Math.Ceiling(a: (((mercenary.Intellegence * 2.75) / 3) + 4) + (0.8 * mercenary.Level));
             }
             else { return 0; }
         }
