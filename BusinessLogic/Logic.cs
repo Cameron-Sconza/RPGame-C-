@@ -10,6 +10,12 @@ namespace BusinessLogic
     public class Logic
     {
         public static Data data = new Data();
+
+        public void SaveGame(Player Player)
+        {
+            data.SaveGame(Player);
+        }
+
         public Player LoadGame()
         {
             Player Player = data.LoadGame();
@@ -44,10 +50,7 @@ namespace BusinessLogic
             return Math.Ceiling(a: ((((mercenary.Level * mercenary.Strength + (mercenary.Dexterity * mercenary.Level) / 4)) / 2) + (4 * mercenary.Constitution)));
         }
 
-        public void SaveGame(Player Player)
-        {
-            data.SaveGame(Player);
-        }
+
 
         public double Damage(double dealerAttack, double recieverDefence, bool crit)
         {

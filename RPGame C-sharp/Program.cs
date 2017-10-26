@@ -191,7 +191,7 @@ namespace RPGame_C_sharp
 
         static Mercenary HireMerc(Player player)
         {
-            int mercCost = 100 * ((int)Math.Pow(player.Mercenaries.Count, 2));
+            int mercCost = 100 * ((int)Math.Pow(player.Mercenaries != null ? player.Mercenaries.Count : 0, 2));
             if (player.Gold > mercCost)
             {
                 int choice = BasicMenu("What is The Mercenaries Profession?\n\t1. Warrior.\n\t2. Rogue\n\t3. Mage\n", 3);
@@ -222,10 +222,10 @@ namespace RPGame_C_sharp
                             Name = Prompt("What Shall Thier Name Be?"),
                             Profession = "Rogue",
                             Level = 1,
-                            Intellegence = 4,
-                            Strength = 8,
-                            Dexterity = 6,
-                            Constitution = 7,
+                            Intellegence = 5,
+                            Strength = 5,
+                            Dexterity = 9,
+                            Constitution = 6,
                             NextLevelExp = 25,
                             CurrentExp = 0,
                         };
@@ -240,10 +240,10 @@ namespace RPGame_C_sharp
                             Name = Prompt("What Shall Thier Name Be?"),
                             Profession = "Mage",
                             Level = 1,
-                            Intellegence = 4,
-                            Strength = 8,
-                            Dexterity = 6,
-                            Constitution = 7,
+                            Intellegence = 12,
+                            Strength = 4,
+                            Dexterity = 4,
+                            Constitution = 5,
                             NextLevelExp = 25,
                             CurrentExp = 0,
                         };

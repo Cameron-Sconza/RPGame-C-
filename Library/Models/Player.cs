@@ -6,6 +6,8 @@ namespace Library.Models
 {
     public class Player
     {
+        public static readonly Player Empty;
+
         public string Name { get; set; }
         public int Gold { get; set; }
         public List<Item> ItemBackpack { get; set; }
@@ -15,6 +17,7 @@ namespace Library.Models
         {
             ItemBackpack = new List<Item>();
             EquipmentBackpack = new List<Equipment>();
+            Mercenaries = new List<Mercenary>();
         }
     }
 }

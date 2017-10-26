@@ -1,1 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Character><Name>Camern</Name><CharacterClass>Rogue</CharacterClass><Strength>5</Strength><Dexterity>9</Dexterity><Constitution>6</Constitution><Intellegence>5</Intellegence><Gold>0</Gold><Level>1</Level><CurrentExp>0</CurrentExp><NextLevelExp>10</NextLevelExp><Armour /><OffHand /><MainHand /><ArmourBackpack /><ItemBackpack /><MainHandBackpack /><OffHandBackpack /></Character>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Player>
+	<Name>Cameron</Name>
+	<Gold>500</Gold>
+	<Mercenaries>
+		<Mercenary>
+			<Name>Rex</Name>
+			<Profession>Warrior</Profession>
+			<Level>1</Level>
+			<Strength>8</Strength>
+			<Dexterity>6</Dexterity>
+			<Constitution>7</Constitution>
+			<Intellegence>4</Intellegence>
+			<Attack>12</Attack>
+			<Defence>12</Defence>
+			<CurrentExp>0</CurrentExp>
+			<NextLevelExp>25</NextLevelExp>
+			<CurrentHealthPoints>32</CurrentHealthPoints>
+			<MaxHealthPoints>32</MaxHealthPoints>
+			<MainHand />
+			<OffHand />
+			<Armour />
+		</Mercenary>
+	</Mercenaries>
+	<ItemBackpack />
+	<EquipmentBackpack />
+</Player>

@@ -26,7 +26,24 @@ namespace DataAccess
                 {
                     foreach (var merc in Player.Mercenaries)
                     {
-                        xmlWriter.WriteElementString("Item", merc.Name);
+                        xmlWriter.WriteStartElement("Mercenary");
+                        xmlWriter.WriteElementString("Name", merc.Name);
+                        xmlWriter.WriteElementString("Profession", merc.Profession);
+                        xmlWriter.WriteElementString("Level", merc.Level.ToString());
+                        xmlWriter.WriteElementString("Strength", merc.Strength.ToString());
+                        xmlWriter.WriteElementString("Dexterity", merc.Dexterity.ToString());
+                        xmlWriter.WriteElementString("Constitution", merc.Constitution.ToString());
+                        xmlWriter.WriteElementString("Intellegence", merc.Intellegence.ToString());
+                        xmlWriter.WriteElementString("Attack", merc.Attack.ToString());
+                        xmlWriter.WriteElementString("Defence", merc.Defence.ToString());
+                        xmlWriter.WriteElementString("CurrentExp", merc.CurrentExp.ToString());
+                        xmlWriter.WriteElementString("NextLevelExp", merc.NextLevelExp.ToString());
+                        xmlWriter.WriteElementString("CurrentHealthPoints", merc.CurrentHealthPoints.ToString());
+                        xmlWriter.WriteElementString("MaxHealthPoints", merc.MaxHealthPoints.ToString());
+                        xmlWriter.WriteElementString("MainHand", merc.MainHand != null ? merc.MainHand.Name : string.Empty);
+                        xmlWriter.WriteElementString("OffHand", merc.OffHand != null ? merc.OffHand.Name : string.Empty);
+                        xmlWriter.WriteElementString("Armour", merc.Armour != null ? merc.Armour.Name : string.Empty);
+                        xmlWriter.WriteEndElement();
                     }
                 }
                 xmlWriter.WriteEndElement();
@@ -61,7 +78,7 @@ namespace DataAccess
             {
                 while (xmlReader.Read())
                 {
-                    if (xmlReader.NodeType != XmlNodeType.EndElement)
+                    if (xmlReader.NodeType != XmlNodeType.EndElement && !xmlReader.IsEmptyElement)
                     {
                         switch (xmlReader.Name)
                         {
@@ -72,14 +89,70 @@ namespace DataAccess
                                 Player.Gold = int.Parse(GetValueForXML(xmlReader));
                                 break;
                             case ("Mercenaries"):
-                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "Mercenaries")
+                                Mercenary mercenary = new Mercenary();
+                                while (!(xmlReader.NodeType == XmlNodeType.EndElement && xmlReader.Name == "Mercenaries"))
                                 {
-                                    if (xmlReader.NodeType != XmlNodeType.EndElement)
+                                    if (xmlReader.NodeType != XmlNodeType.EndElement && !xmlReader.IsEmptyElement)
                                     {
+                                        
                                         switch (xmlReader.Name)
                                         {
-                                            case (""):
+                                            case ("Name"):
+                                                mercenary.Name = GetValueForXML(xmlReader);
                                                 break;
+                                            case ("Profession"):
+                                                mercenary.Profession = GetValueForXML(xmlReader);
+                                                break;
+                                            case ("Level"):
+                                                mercenary.Level = Convert.ToInt32(GetValueForXML(xmlReader));
+                                                break;
+                                            case ("Strength"):
+                                                mercenary.Strength = Convert.ToInt32(GetValueForXML(xmlReader));
+                                                break;
+                                            case ("Dexterity"):
+                                                mercenary.Dexterity = Convert.ToInt32(GetValueForXML(xmlReader));
+                                                break;
+                                            case ("Constitution"):
+                                                mercenary.Constitution = Convert.ToInt32(GetValueForXML(xmlReader));
+                                                break;
+                                            case ("Intellegence"):
+                                                mercenary.Intellegence = Convert.ToInt32(GetValueForXML(xmlReader));
+                                                break;
+                                            case ("Attack"):
+                                                mercenary.Attack = Convert.ToDouble(GetValueForXML(xmlReader));
+                                                break;
+                                            case ("Defence"):
+                                                mercenary.Defence = Convert.ToDouble(GetValueForXML(xmlReader));
+                                                break;
+                                            case ("CurrentExp"):
+                                                mercenary.CurrentExp = Convert.ToDouble(GetValueForXML(xmlReader));
+                                                break;
+                                            case ("NextLevelExp"):
+                                                mercenary.NextLevelExp = Convert.ToDouble(GetValueForXML(xmlReader));
+                                                break;
+                                            case ("CurrentHealthPoints"):
+                                                mercenary.CurrentHealthPoints = Convert.ToDouble(GetValueForXML(xmlReader));
+                                                break;
+                                            case ("MaxHealthPoints"):
+                                                mercenary.MaxHealthPoints = Convert.ToDouble(GetValueForXML(xmlReader));
+                                                break;
+                                            case ("MainHand"):
+                                                mercenary.MainHand = GetAllEquipment().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault();
+                                                break;
+                                            case ("OffHand"):
+                                                mercenary.OffHand = GetAllEquipment().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault();
+                                                break;
+                                            case ("Armour"):
+                                                mercenary.Armour = GetAllEquipment().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault();
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if(xmlReader.Name == "Mercenary")
+                                        {
+                                            Player.Mercenaries.Add(mercenary);
+                                            mercenary = new Mercenary();
                                         }
                                     }
                                     xmlReader.Read();
