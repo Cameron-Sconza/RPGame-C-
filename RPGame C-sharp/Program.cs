@@ -147,10 +147,11 @@ namespace RPGame_C_sharp
                         player.Mercenaries.Add(HireMerc(player));
                         break;
                     case (2):
-                        player.Mercenaries.Remove(SelectMerc(player, "Please Select a Merc To Fire.\nOr Enter A Number Up to 3 Higher then Shown to Cancel.\n"));
+                        player.Mercenaries.Remove(SelectMerc(player, "Please Select a Merc To Fire."));
                         break;
                     case (3):
                         ViewMerc(player);
+                        Prompt("Hit Enter to Leave.");
                         break;
                     case (4):
                         player = Quest(player);
@@ -169,21 +170,12 @@ namespace RPGame_C_sharp
         private static Player OrderedRest(Player p)
         {
             Player player = p;
-            Console.Clear();
-            for (int i = 0; i < player.Mercenaries.Count; i++)
-            {
-                Console.WriteLine((i + 1) + ".\tName: " + player.Mercenaries[i].Name + "\n\tProfession: " + player.Mercenaries[i].Profession + "\n\tLevel: " + player.Mercenaries[i].Level);
-            }
-            int choice = BasicMenu("Please Select a Merc To Get Some Rest.\nOr Enter A Number Up to 3 Higher then Shown to Cancel.\n", player.Mercenaries.Count + 3);
-            try
-            {
-                player.Mercenaries[choice - 1].CurrentHealthPoints = player.Mercenaries[choice - 1].MaxHealthPoints;
-                return player;
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                return p;
-            }
+            Mercenary merc = SelectMerc(player, "Please Select a Merc To Get Some Rest.");
+            int index = player.Mercenaries.IndexOf(merc);
+            merc.CurrentHealthPoints = merc.MaxHealthPoints;
+            player.Mercenaries.RemoveAt(index);
+            player.Mercenaries.Insert(index, merc);
+            return player;
         }
 
         private static Player Quest(Player p)
@@ -212,22 +204,19 @@ namespace RPGame_C_sharp
         {
             List<Quest> list = logic.GetAllQuests().Where(q => q.Tier == tier).ToList();
             int count = list.Count;
-            for (int i = 0; i < count; i++)
-            {
-                Console.WriteLine((i + 1) + ". " + list[i].Name + "\tLevel Requirement: " + list[i].RequiredLevel + "\n\tCost: " + list[i].GoldCost + '\n');
-            }
+            ViewMerc(p);
             int choice = BasicMenu("Which Quest Would You Like to Sent A Mercenary to Complete?\nOr Enter a Number Up to 3 Higher Then Shown to Leave.", count + 3);
             try
             {
-                Quest quest = list[choice - 1];
-                Mercenary mercenary = SelectMerc(p, "Please Select a Merc To Send On This Quest.\nOr Enter A Number Up to 3 Higher then Shown to Cancel.\n");
-                if(mercenary == Mercenary.Empty)
+                Questing questing = Questing.Convert(list[choice - 1]);
+                questing.Mercenary = SelectMerc(p, "Please Select a Merc To Send On This Quest.");
+                if (questing.Mercenary == Mercenary.Empty)
                 {
                     return p;
                 }
                 else
                 {
-                    return logic.Questing(p, quest, mercenary);
+                    return logic.Questing(p, questing);
                 }
             }
             catch (ArgumentOutOfRangeException)
@@ -238,23 +227,22 @@ namespace RPGame_C_sharp
 
         private static void ViewMerc(Player player)
         {
+            Console.Clear();
+            int i = 1;
             foreach (var merc in player.Mercenaries)
             {
-                Console.WriteLine("Name: " + merc.Name + "\tHeathPoints: " + merc.CurrentHealthPoints + '/' + merc.MaxHealthPoints +
+                Console.WriteLine((i +1)+".\tName: " + merc.Name + "\tHeathPoints: " + merc.CurrentHealthPoints + '/' + merc.MaxHealthPoints +
                     "\nStrength: " + merc.Strength + "\tDexterity: " + merc.Dexterity + "\tIntellegence: " + merc.Intellegence +
                     "\nAttack: " + merc.Attack + "\tDefence: " + merc.Defence + "\tExp: " + merc.CurrentExp + '/' + merc.NextLevelExp + '\n');
+                i++;
             }
-            Prompt("Hit Enter to Leave.");
         }
 
         private static Mercenary SelectMerc(Player player, string text)
         {
             Console.Clear();
-            for (int i = 0; i < player.Mercenaries.Count; i++)
-            {
-                Console.WriteLine((i + 1) + ".\tName: " + player.Mercenaries[i].Name + "\n\tProfession: " + player.Mercenaries[i].Profession + "\n\tLevel: " + player.Mercenaries[i].Level);
-            }
-            int choice = BasicMenu(text, player.Mercenaries.Count + 3);
+            ViewMerc(player);
+            int choice = BasicMenu(text + "\nOr Enter A Number Up to 3 Higher then Shown to Cancel.\n", player.Mercenaries.Count + 3);
             try
             {
                 return player.Mercenaries[choice - 1];

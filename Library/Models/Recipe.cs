@@ -8,5 +8,9 @@ namespace Library.Models
         public long CraftingTime { get; set; }
         public int Difficulty { get; set; }
         public List<Ingredient> Ingredients { get; set; }
+        public Recipe()
+        {
+            Ingredients = new List<Ingredient>();
+        }
     }
 }
