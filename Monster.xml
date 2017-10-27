@@ -4,30 +4,71 @@
 		<Name>Goblin</Name>
 		<MaxHealthPoints>15</MaxHealthPoints>
 		<Attack>3</Attack>
-		<Defence>2</Defence>
+		<Defence>2</Defence><Name>Goblin</Name>
+		<ExpGain>3</ExpGain>
+		<GoldDrop>2</GoldDrop>
+		<ItemDrop>
+			<Item>Hide</Item>
+			<Item>Goblin Claw</Item>
+			<Item>Goblin Horn</Item>
+			<Item>Rusted Metal</Item>
+		</ItemDrop>
 	</Monster>
 	<Monster>
 		<Name>Hobgoblin</Name>
 		<MaxHealthPoints>35</MaxHealthPoints>
 		<Attack>7</Attack>
 		<Defence>5</Defence>
+		<ExpGain>7</ExpGain>
+		<GoldDrop>5</GoldDrop>
+		<ItemDrop>
+			<Item>Hide</Item>
+			<Item>Blade Fragment</Item>
+			<Item>Goblin Horn</Item>
+			<Item>Goblin's Blood</Item>
+		</ItemDrop>
 	</Monster>
 	<Monster>
 		<Name>Ogre</Name>
 		<MaxHealthPoints>80</MaxHealthPoints>
 		<Attack>15</Attack>
 		<Defence>11</Defence>
+		<ExpGain>15</ExpGain>
+		<GoldDrop>11</GoldDrop>
+		<ItemDrop>
+			<Item>Ogre Ear</Item>
+			<Item>Macabre Eye</Item>
+			<Item>Unspeakable Meat</Item>
+			<Item>Hide</Item>
+			<Item>Hide</Item>
+		</ItemDrop>
 	</Monster>
 	<Monster>
 		<Name>Skeleton</Name>
 		<MaxHealthPoints>190</MaxHealthPoints>
 		<Attack>7</Attack>
 		<Defence>22</Defence>
+		<ExpGain>31</ExpGain>
+		<GoldDrop>23</GoldDrop>
+		<ItemDrop>
+			<Item>Hard Bone</Item>
+			<Item>Rusted Bow</Item>
+			<Item>Rusted Sword</Item>
+			<Item>Rusted Dagger</Item>
+		</ItemDrop>
 	</Monster>
 	<Monster>
 		<Name>Dragon</Name>
 		<MaxHealthPoints>470</MaxHealthPoints>
 		<Attack>50</Attack>
 		<Defence>9</Defence>
+		<ExpGain>63</ExpGain>
+		<GoldDrop>47</GoldDrop>
+		<ItemDrop>
+			<Item>Scale</Item>
+			<Item>Dragon Hide</Item>
+			<Item>Dragon Heart</Item>
+			<Item>Enchanted Tear</Item>
+		</ItemDrop>
 	</Monster>
 </MonsterList>

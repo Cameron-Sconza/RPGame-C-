@@ -94,7 +94,7 @@ namespace DataAccess
                                 {
                                     if (xmlReader.NodeType != XmlNodeType.EndElement && !xmlReader.IsEmptyElement)
                                     {
-                                        
+
                                         switch (xmlReader.Name)
                                         {
                                             case ("Name"):
@@ -149,7 +149,7 @@ namespace DataAccess
                                     }
                                     else
                                     {
-                                        if(xmlReader.Name == "Mercenary")
+                                        if (xmlReader.Name == "Mercenary")
                                         {
                                             Player.Mercenaries.Add(mercenary);
                                             mercenary = new Mercenary();
@@ -159,21 +159,23 @@ namespace DataAccess
                                 }
                                 break;
                             case ("ItemBackpack"):
+                                List<Item> listItem = GetAllItems();
                                 while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "ItemBackpack")
                                 {
                                     if (xmlReader.NodeType != XmlNodeType.EndElement)
                                     {
-                                        Player.ItemBackpack.Add(GetAllItems().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
+                                        Player.ItemBackpack.Add(listItem.Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
                                     }
                                     xmlReader.Read();
                                 }
                                 break;
                             case ("EquipmentBackpack"):
+                                List<Equipment> listEquip = GetAllEquipment();
                                 while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "EquipmentBackpack")
                                 {
                                     if (xmlReader.NodeType != XmlNodeType.EndElement)
                                     {
-                                        Player.EquipmentBackpack.Add(GetAllEquipment().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
+                                        Player.EquipmentBackpack.Add(listEquip.Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
                                     }
                                     xmlReader.Read();
                                 }
@@ -185,8 +187,12 @@ namespace DataAccess
             if (Player.Name != null) { return Player; }
             else { return null; }
         }
+        public List<Recipe> GetAllArmourRecipes()
+        {
+            throw new NotImplementedException();
+        }
 
-        private List<Equipment> GetAllEquipment()
+        public List<Equipment> GetAllEquipment()
         {
             throw new NotImplementedException();
         }
@@ -208,10 +214,10 @@ namespace DataAccess
                                 item.Name = GetValueForXML(xmlReader);
                                 break;
                             case ("BuyPrice"):
-                                item.BuyPrice = int.Parse(GetValueForXML(xmlReader));
+                                item.BuyPrice = Convert.ToInt32(GetValueForXML(xmlReader));
                                 break;
                             case ("SellPrice"):
-                                item.SellPrice = int.Parse(GetValueForXML(xmlReader));
+                                item.SellPrice = Convert.ToInt32(GetValueForXML(xmlReader));
                                 break;
                             case ("Description"):
                                 item.Description = GetValueForXML(xmlReader);
@@ -231,6 +237,11 @@ namespace DataAccess
             return list;
         }
 
+        public List<Recipe> GetAllMiscRecipes()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Monster> GetMonster()
         {
             List<Monster> list = new List<Monster>();
@@ -242,21 +253,36 @@ namespace DataAccess
                 {
                     if (xmlReader.NodeType != XmlNodeType.EndElement)
                     {
-                        if (xmlReader.Name == "Name")
+                        switch (xmlReader.Name)
                         {
-                            mon.Name = GetValueForXML(xmlReader);
-                        }
-                        else if (xmlReader.Name == "MaxHealthPoints")
-                        {
-                            mon.MaxHealthPoints = double.Parse(GetValueForXML(xmlReader));
-                        }
-                        else if (xmlReader.Name == "Attack")
-                        {
-                            mon.Attack = double.Parse(GetValueForXML(xmlReader));
-                        }
-                        else if (xmlReader.Name == "Defence")
-                        {
-                            mon.Defence = double.Parse(GetValueForXML(xmlReader));
+                            case ("Name"):
+                                mon.Name = GetValueForXML(xmlReader);
+                                break;
+                            case ("MaxHealthPoints"):
+                                mon.MaxHealthPoints = Convert.ToDouble(GetValueForXML(xmlReader));
+                                break;
+                            case ("Attack"):
+                                mon.Attack = Convert.ToDouble(GetValueForXML(xmlReader));
+                                break;
+                            case ("Defence"):
+                                mon.Defence = Convert.ToDouble(GetValueForXML(xmlReader));
+                                break;
+                            case ("ExpGain"):
+                                mon.ExpGain = Convert.ToDouble(GetValueForXML(xmlReader));
+                                break;
+                            case ("GoldDrop"):
+                                mon.GoldDrop = Convert.ToInt32(GetValueForXML(xmlReader));
+                                break;
+                            case ("ItemDrop"):
+                                while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "ItemDrop")
+                                {
+                                    if (xmlReader.NodeType != XmlNodeType.EndElement)
+                                    {
+                                        mon.Items.Add(GetAllItems().Where(i => i.Name == GetValueForXML(xmlReader)).FirstOrDefault());
+                                    }
+                                    xmlReader.Read();
+                                }
+                                break;
                         }
                     }
                     else
@@ -272,6 +298,21 @@ namespace DataAccess
             return list;
         }
 
+        public List<Recipe> GetAllOffHandRecipes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Recipe> GetAllPotionRecipies()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Recipe> GetAllWeaponRecipes()
+        {
+            throw new NotImplementedException();
+        }
+        
         private string GetValueForXML(XmlReader xml)
         {
             xml.Read();

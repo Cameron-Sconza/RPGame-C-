@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Library.Models;
 using BusinessLogic;
 using System.Threading;
+using System.Linq;
 
 namespace RPGame_C_sharp
 {
@@ -89,7 +90,7 @@ namespace RPGame_C_sharp
             do
             {
                 Console.Clear();
-                int choice = BasicMenu("What Would You Like to Do?\n\t1. Craft Weapons.\n\t2. Craft Armour.\n\t3. Craft Potions.\n\t4. Back.\n", 4);
+                int choice = BasicMenu("What Would You Like to Do?\n\t1. Craft Weapons.\n\t2. Craft Armour.\n\t3. Craft Potions.\n\t4. Craft Misc.\n\t5. Back.\n", 5);
                 switch (choice)
                 {
                     case (1):
@@ -102,11 +103,19 @@ namespace RPGame_C_sharp
                         player = CraftPotion(player);
                         break;
                     case (4):
+                        player = CraftMisc(player);
+                        break;
+                    case (5):
                         isCrafting = false;
                         break;
                 }
             } while (isCrafting);
             return player;
+        }
+
+        private static Player CraftMisc(Player player)
+        {
+            throw new NotImplementedException();
         }
 
         private static Player CraftPotion(Player player)
@@ -138,7 +147,7 @@ namespace RPGame_C_sharp
                         player.Mercenaries.Add(HireMerc(player));
                         break;
                     case (2):
-                        player.Mercenaries.Remove(FireMerc(player));
+                        player.Mercenaries.Remove(SelectMerc(player, "Please Select a Merc To Fire.\nOr Enter A Number Up to 3 Higher then Shown to Cancel.\n"));
                         break;
                     case (3):
                         ViewMerc(player);
@@ -168,40 +177,84 @@ namespace RPGame_C_sharp
             int choice = BasicMenu("Please Select a Merc To Get Some Rest.\nOr Enter A Number Up to 3 Higher then Shown to Cancel.\n", player.Mercenaries.Count + 3);
             try
             {
-                choice--;
-                player.Mercenaries[choice].CurrentHealthPoints = player.Mercenaries[choice].MaxHealthPoints;
+                player.Mercenaries[choice - 1].CurrentHealthPoints = player.Mercenaries[choice - 1].MaxHealthPoints;
                 return player;
             }
             catch (ArgumentOutOfRangeException)
             {
-                return player;
+                return p;
             }
         }
 
-        private static Player Quest(Player player)
+        private static Player Quest(Player p)
         {
-            throw new NotImplementedException();
+            Player player = p;
+            bool isPlaying = true;
+            do
+            {
+                int choice = BasicMenu("Select a Tier.\n\t1. Easy (Reccomended Level 1).\n\t2. Medium (Reccomended Level 10)\n\t3.  Hard (Reccomended Level 25)\n\t4. Leave.\n", 4);
+                switch (choice)
+                {
+                    case (1):
+                    case (2):
+                    case (3):
+                        player = Tier(player, choice);
+                        break;
+                    case (4):
+                        isPlaying = false;
+                        break;
+                }
+            } while (isPlaying);
+            return player;
+        }
+
+        private static Player Tier(Player p, int tier)
+        {
+            List<Quest> list = logic.GetAllQuests().Where(q => q.Tier == tier).ToList();
+            int count = list.Count;
+            for (int i = 0; i < count; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + list[i].Name + "\tLevel Requirement: " + list[i].RequiredLevel + "\n\tCost: " + list[i].GoldCost + '\n');
+            }
+            int choice = BasicMenu("Which Quest Would You Like to Sent A Mercenary to Complete?\nOr Enter a Number Up to 3 Higher Then Shown to Leave.", count + 3);
+            try
+            {
+                Quest quest = list[choice - 1];
+                Mercenary mercenary = SelectMerc(p, "Please Select a Merc To Send On This Quest.\nOr Enter A Number Up to 3 Higher then Shown to Cancel.\n");
+                if(mercenary == Mercenary.Empty)
+                {
+                    return p;
+                }
+                else
+                {
+                    return logic.Questing(p, quest, mercenary);
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return p;
+            }
         }
 
         private static void ViewMerc(Player player)
         {
             foreach (var merc in player.Mercenaries)
             {
-                Console.WriteLine("Name: "+merc.Name+"\tHeathPoints: "+merc.CurrentHealthPoints +'/'+ merc.MaxHealthPoints +
-                    "\nStrength: "+ merc.Strength +"\tDexterity: "+merc.Dexterity+"\tIntellegence: "+merc.Intellegence+
-                    "\nAttack: "+merc.Attack+"\tDefence: "+merc.Defence+"\tExp: "+merc.CurrentExp+'/'+merc.NextLevelExp + '\n');
+                Console.WriteLine("Name: " + merc.Name + "\tHeathPoints: " + merc.CurrentHealthPoints + '/' + merc.MaxHealthPoints +
+                    "\nStrength: " + merc.Strength + "\tDexterity: " + merc.Dexterity + "\tIntellegence: " + merc.Intellegence +
+                    "\nAttack: " + merc.Attack + "\tDefence: " + merc.Defence + "\tExp: " + merc.CurrentExp + '/' + merc.NextLevelExp + '\n');
             }
             Prompt("Hit Enter to Leave.");
         }
 
-        private static Mercenary FireMerc(Player player)
+        private static Mercenary SelectMerc(Player player, string text)
         {
             Console.Clear();
-            for(int i = 0; i < player.Mercenaries.Count; i++)
+            for (int i = 0; i < player.Mercenaries.Count; i++)
             {
                 Console.WriteLine((i + 1) + ".\tName: " + player.Mercenaries[i].Name + "\n\tProfession: " + player.Mercenaries[i].Profession + "\n\tLevel: " + player.Mercenaries[i].Level);
             }
-            int choice = BasicMenu("Please Select a Merc To Fire.\nOr Enter A Number Up to 3 Higher then Shown to Cancel.\n", player.Mercenaries.Count + 3);
+            int choice = BasicMenu(text, player.Mercenaries.Count + 3);
             try
             {
                 return player.Mercenaries[choice - 1];
@@ -311,12 +364,68 @@ namespace RPGame_C_sharp
             return player;
         }
 
-        private static Player SellMenu(Player player)
+        private static Player SellMenu(Player p)
+        {
+            Player player = p;
+            bool isPlaying = true;
+            do
+            {
+                int choice = BasicMenu("What Would You Like to Sell?\n\t1. Items.\n\t2. Equipment.\n\t3. Nevermind.", 3);
+                switch (choice)
+                {
+                    case (1):
+                        player = SellItems(player);
+                        break;
+                    case (2):
+                        player = SellEquipment(player);
+                        break;
+                    case (3):
+                        isPlaying = false;
+                        break;
+                }
+            } while (isPlaying);
+            return player;
+        }
+
+        private static Player SellEquipment(Player player)
         {
             throw new NotImplementedException();
         }
 
-        private static Player BuyMenu(Player player)
+        private static Player SellItems(Player player)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static Player BuyMenu(Player p)
+        {
+            Player player = p;
+            bool isPlaying = true;
+            do
+            {
+                int choice = BasicMenu("What Would You Like to Sell?\n\t1. Items.\n\t2. Equipment.\n\t3. Nevermind.", 3);
+                switch (choice)
+                {
+                    case (1):
+                        player = BuyItems(player);
+                        break;
+                    case (2):
+                        player = BuyEquipment(player);
+                        break;
+                    case (3):
+                        isPlaying = false;
+                        break;
+                }
+            } while (isPlaying);
+            return player;
+        }
+
+        private static Player BuyEquipment(Player player)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static Player BuyItems(Player player)
         {
             throw new NotImplementedException();
         }

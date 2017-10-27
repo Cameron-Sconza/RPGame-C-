@@ -1,75 +1,141 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ItemList>
 	<Item>
+		<Name>Hide</Name>
+		<BuyPrice>10</BuyPrice>
+		<SellPrice>1</SellPrice>
+		<Description>The Hide Of An Animal That Might Be Of Some Use. Can Be Used In The Crafting Of Waeopns and Armour.</Description>
+	</Item>
+	<Item>
+		<Name>Leather</Name>
+		<BuyPrice>40</BuyPrice>
+		<SellPrice>4</SellPrice>
+		<Description>Made From Treating the Hides Of Animals. Can Be Used in the Crafting Of Weapons And Armour.</Description>
+	</Item>
+	<Item>
+		<Name>Wood</Name>
+		<BuyPrice>5</BuyPrice>
+		<SellPrice>1</SellPrice>
+		<Description>Random Sticks And Twigs Can Help Any Weary Traveler. Can Be Used In A Wide Variety of Crafting Recipies.</Description>
+	</Item>
+	<Item>
+		<Name>Treated Wood</Name>
+		<BuyPrice>40</BuyPrice>
+		<SellPrice>4</SellPrice>
+		<Description>Made From Treating Only the Best Of the Wood You Could Find. Can Be Used In A Wide Variety of Crafting Recipies.</Description>
+	</Item>
+	<Item>
+		<Name>Iron Ore</Name>
+		<BuyPrice>10</BuyPrice>
+		<SellPrice>1</SellPrice>
+		<Description>An Almost Worthless Rock, But Its Very Useful. Can Be Used For Crafting Weapons And Armour.</Description>
+	</Item>
+	<Item>
+		<Name>Iron Ingot</Name>
+		<BuyPrice>40</BuyPrice>
+		<SellPrice>4</SellPrice>
+		<Description>Made From Iron Ore. This Stuff Is More Reliable And Usefull Then Its Predicessor. Can Be Used For Crafting Higher Level Weapons And Armour.</Description>
+	</Item>
+	<Item>
+		<Name>Silver Ore</Name>
+		<BuyPrice>100</BuyPrice>
+		<SellPrice>10</SellPrice>
+		<Description></Description>
+	</Item>
+	<Item>
 		<Name>Scale</Name>
 		<BuyPrice>2000</BuyPrice>
+		<SellPrice>200</SellPrice>
+		<Description>The Scale Of A Dragon. Can Be Used In the Crafting Of Weapons And Armour.</Description>
 	</Item>
 	<Item>
 		<Name>Dragon Hide</Name>
 		<BuyPrice>2500</BuyPrice>
+		<SellPrice>250</SellPrice>
+		<Description>The Hide Of A Dragon. Can Be Used In the Crafting Of Armour.</Description>
 	</Item>
 	<Item>
 		<Name>Dragon Heart</Name>
 		<BuyPrice>5000</BuyPrice>
+		<SellPrice>500</SellPrice>
+		<Description>The Heart Of A Dragon. Can Be Used In the Crafting Of Potions.</Description>
 	</Item>
 	<Item>
 		<Name>Enchanted Tear</Name>
 		<BuyPrice>10000</BuyPrice>
+		<SellPrice>1000</SellPrice>
+		<Description></Description>
 	</Item>
 	<Item>
 		<Name>Goblin Claw</Name>
 		<BuyPrice>10</BuyPrice>
+		<SellPrice>1</SellPrice>
+		<Description></Description>
 	</Item>
 	<Item>
 		<Name>Goblin Horn</Name>
 		<BuyPrice>25</BuyPrice>
+		<SellPrice>12</SellPrice>
+		<Description></Description>
 	</Item>
 	<Item>
 		<Name>Rusted Metal</Name>
 		<BuyPrice>5</BuyPrice>
+		<SellPrice>1</SellPrice>
+		<Description></Description>
 	</Item>
 	<Item>
-		<Name>Bone</Name>
+		<Name>Rusted Dagger</Name>
 		<BuyPrice>50</BuyPrice>
+		<SellPrice>5</SellPrice>
+		<Description></Description>
 	</Item>
 	<Item>
 		<Name>Hard Bone</Name>
 		<BuyPrice>100</BuyPrice>
+		<SellPrice>10</SellPrice>
+		<Description></Description>
 	</Item>
 	<Item>
 		<Name>Rusted Sword</Name>
 		<BuyPrice>50</BuyPrice>
+		<SellPrice>5</SellPrice>
+		<Description></Description>
 	</Item>
 	<Item>
-		<Name>Bow</Name>
-		<BuyPrice>75</BuyPrice>
+		<Name>Rusted Bow</Name>
+		<BuyPrice>50</BuyPrice>
+		<SellPrice>5</SellPrice>
+		<Description></Description>
 	</Item>
 	<Item>
 		<Name>Ogre Ear</Name>
 		<BuyPrice>100</BuyPrice>
+		<SellPrice>10</SellPrice>
+		<Description></Description>
 	</Item>
 	<Item>
 		<Name>Macabre Eye</Name>
 		<BuyPrice>175</BuyPrice>
+		<SellPrice>80</SellPrice>
+		<Description></Description>
 	</Item>
 	<Item>
 		<Name>Unspeakable Meat</Name>
 		<BuyPrice>40</BuyPrice>
-	</Item>
-	<Item>
-		<Name>Ogre Hide</Name>
-		<BuyPrice>90</BuyPrice>
-	</Item>
-	<Item>
-		<Name>Raw Hide</Name>
-		<BuyPrice>60</BuyPrice>
+		<SellPrice>4</SellPrice>
+		<Description></Description>
 	</Item>
 	<Item>
 		<Name>Blade Fragment</Name>
 		<BuyPrice>35</BuyPrice>
+		<SellPrice>4</SellPrice>
+		<Description></Description>
 	</Item>
 	<Item>
 		<Name>Goblin's Blood</Name>
 		<BuyPrice>55</BuyPrice>
+		<SellPrice>6</SellPrice>
+		<Description></Description>
 	</Item>
 </ItemList>

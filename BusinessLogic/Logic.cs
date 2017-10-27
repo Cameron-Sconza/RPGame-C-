@@ -50,8 +50,6 @@ namespace BusinessLogic
             return Math.Ceiling(a: ((((mercenary.Level * mercenary.Strength + (mercenary.Dexterity * mercenary.Level) / 4)) / 2) + (4 * mercenary.Constitution)));
         }
 
-
-
         public double Damage(double dealerAttack, double recieverDefence, bool crit)
         {
             if (crit)
@@ -142,6 +140,24 @@ namespace BusinessLogic
         public List<Item> GetShopItemNames()
         {
             return data.GetAllItems();
+        }
+
+        public List<Quest> GetAllQuests()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Player Questing(Player p, Quest q, Mercenary m)
+        {
+            Player player = p;
+            Quest quest = q;
+            Mercenary mercenary = m;
+            //Place Logic for wait times here before battle.
+            //Have the battle fall through and should end quickly, or i could remove travel times
+            //If i remove the travel times there will be a Thread.Sleep(1000) between each action
+            //Each Action Taken will be either Merc, or Monster
+            //Once one of them dies end the fight and move oneto either the next mon or end the run.
+            return p;
         }
     }
 }
