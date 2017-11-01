@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccess;
+using Library.Models;
 
 namespace BusinessLogic.SplitLogic
 {
-    class PlayerLogic
+    public class PlayerLogic
     {
+        public void SaveGame(Player Player)
+        {
+            Data.PlayerData.SaveGame(Player);
+        }
+
+        public Player LoadGame()
+        {
+            Player Player = Data.PlayerData.LoadGame();
+            if (Player == null) { return null; }
+            else { return Player; }
+        }
+
     }
 }

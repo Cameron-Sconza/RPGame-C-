@@ -9,7 +9,6 @@ namespace RPGame_C_sharp
 {
     class Program
     {
-        public static Logic logic = new Logic();
         static void Main(string[] args)
         {
             bool appIsRunning = true;
@@ -33,7 +32,7 @@ namespace RPGame_C_sharp
 
         private static void LoadGame()
         {
-            Player Player = logic.LoadGame();
+            Player Player = Logic.PlayerLogic.LoadGame();
             if (Player != null)
             {
                 PlayGame(Player);
@@ -65,7 +64,7 @@ namespace RPGame_C_sharp
                 switch (choice)
                 {
                     case (1):
-                        logic.SaveGame(player);
+                        Logic.PlayerLogic.SaveGame(player);
                         break;
                     case (2):
                         player = MercMenu(player);
@@ -202,7 +201,7 @@ namespace RPGame_C_sharp
 
         private static Player Tier(Player p, int tier)
         {
-            List<Quest> list = logic.GetAllQuests().Where(q => q.Tier == tier).ToList();
+            List<Quest> list = Logic.QuestLogic.GetAllQuests().Where(q => q.Tier == tier).ToList();
             int count = list.Count;
             ViewMerc(p);
             int choice = BasicMenu("Which Quest Would You Like to Sent A Mercenary to Complete?\nOr Enter a Number Up to 3 Higher Then Shown to Leave.", count + 3);
@@ -216,7 +215,7 @@ namespace RPGame_C_sharp
                 }
                 else
                 {
-                    return logic.Questing(p, questing);
+                    return Logic.CombatLogic.Questing(p, questing);
                 }
             }
             catch (ArgumentOutOfRangeException)
@@ -231,7 +230,7 @@ namespace RPGame_C_sharp
             int i = 1;
             foreach (var merc in player.Mercenaries)
             {
-                Console.WriteLine((i +1)+".\tName: " + merc.Name + "\tHeathPoints: " + merc.CurrentHealthPoints + '/' + merc.MaxHealthPoints +
+                Console.WriteLine((i + 1) + ".\tName: " + merc.Name + "\tHeathPoints: " + merc.CurrentHealthPoints + '/' + merc.MaxHealthPoints +
                     "\nStrength: " + merc.Strength + "\tDexterity: " + merc.Dexterity + "\tIntellegence: " + merc.Intellegence +
                     "\nAttack: " + merc.Attack + "\tDefence: " + merc.Defence + "\tExp: " + merc.CurrentExp + '/' + merc.NextLevelExp + '\n');
                 i++;
@@ -276,10 +275,6 @@ namespace RPGame_C_sharp
                             NextLevelExp = 25,
                             CurrentExp = 0,
                         };
-                        Merc.Attack = logic.CalculateAttack(Merc);
-                        Merc.Defence = logic.CalculateDefence(Merc);
-                        Merc.MaxHealthPoints = logic.CalculateMaxHealthPoints(Merc);
-                        Merc.CurrentHealthPoints = Merc.MaxHealthPoints;
                         break;
                     case (2):
                         Merc = new Mercenary()
@@ -294,10 +289,6 @@ namespace RPGame_C_sharp
                             NextLevelExp = 25,
                             CurrentExp = 0,
                         };
-                        Merc.Attack = logic.CalculateAttack(Merc);
-                        Merc.Defence = logic.CalculateDefence(Merc);
-                        Merc.MaxHealthPoints = logic.CalculateMaxHealthPoints(Merc);
-                        Merc.CurrentHealthPoints = Merc.MaxHealthPoints;
                         break;
                     case (3):
                         Merc = new Mercenary()
@@ -312,12 +303,12 @@ namespace RPGame_C_sharp
                             NextLevelExp = 25,
                             CurrentExp = 0,
                         };
-                        Merc.Attack = logic.CalculateAttack(Merc);
-                        Merc.Defence = logic.CalculateDefence(Merc);
-                        Merc.MaxHealthPoints = logic.CalculateMaxHealthPoints(Merc);
-                        Merc.CurrentHealthPoints = Merc.MaxHealthPoints;
                         break;
                 }
+                Merc.Attack = Logic.StatsLogic.CalculateAttack(Merc);
+                Merc.Defence = Logic.StatsLogic.CalculateDefence(Merc);
+                Merc.MaxHealthPoints = Logic.StatsLogic.CalculateMaxHealthPoints(Merc);
+                Merc.CurrentHealthPoints = Merc.MaxHealthPoints;
                 return Merc;
             }
             else

@@ -42,6 +42,10 @@
   <ItemGroup>
     <Compile Include="Data.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplitData\ItemData.cs" />
+    <Compile Include="SplitData\PlayerData.cs" />
+    <Compile Include="SplitData\QuestData.cs" />
+    <Compile Include="SplitData\RecipeData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library\Library.csproj">
@@ -49,8 +53,6 @@
       <Name>Library</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SplitData\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

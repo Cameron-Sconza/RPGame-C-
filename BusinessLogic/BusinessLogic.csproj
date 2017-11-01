@@ -42,10 +42,12 @@
   <ItemGroup>
     <Compile Include="Logic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplitLogic\CombatLogic.cs" />
     <Compile Include="SplitLogic\ItemLogic.cs" />
     <Compile Include="SplitLogic\RecipeLogic.cs" />
     <Compile Include="SplitLogic\PlayerLogic.cs" />
     <Compile Include="SplitLogic\QuestLogic.cs" />
+    <Compile Include="SplitLogic\StatsLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
