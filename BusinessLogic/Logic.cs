@@ -130,22 +130,22 @@ namespace BusinessLogic
             throw new NotImplementedException();
         }
 
-        public Player Questing(Player p, Quest q)
+        public Player Questing(Player p, Questing q)
         {
             Player player = p;
-            Quest quest = Combat(q);
-            //Place Logic for wait times here before battle.
-            //Have the battle fall through and should end quickly, or i could remove travel times
-            //If i remove the travel times there will be a Thread.Sleep(1000) between each action
-            //Each Action Taken will be either Merc, or Monster
-            //Once one of them dies end the fight and move oneto either the next mon or end the run.
+            Questing quest = Combat(q);
+            // Create a Save File For Quests, with a limit of so many quests possible at one time from there 
+            // make a load method to be checked upon each running of the method, after that if there is nothing proceed
+            // otherwise display the currecnt quests along with a menu choice to be made(ie another quest, complete a current one).
+            // rebuild Questing Logic Accordingly, IE the list of active quests,
+            // change the names of the methods so it doesnt cause evoking issues
             return p;
         }
 
-        private Quest Combat(Quest q)
+        private Questing Combat(Questing q)
         {
             Mercenary mercenary = q.Mercenary;
-            Quest quest = q;
+            Questing quest = q;
             foreach (var monster in quest.Monsters)
             {
                 do
@@ -160,18 +160,18 @@ namespace BusinessLogic
                 } while (monster.CurrentHealthPoints > 0 && mercenary.CurrentHealthPoints > 0);
                 if (mercenary.CurrentHealthPoints < 0)
                 {
-                    q.Mercenary = mercenary;
-                    quest.Sucess = false;
-                    break;
+                    quest.Mercenary = mercenary;
+                    quest.Sucess = true;
+                    continue;
                 }
                 else
                 {
-                    q.Mercenary = mercenary;
-                    quest.Sucess = true;
+                    quest.Mercenary = mercenary;
+                    quest.Sucess = false;
                     break;
                 }
             }
-            return quest;
+            return null;
         }
 
         private ActionLog LogOneRound(ActionLog actionLog, string firstAction, string secondAction, string endOfRound)
