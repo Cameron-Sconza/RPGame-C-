@@ -40,7 +40,7 @@ namespace DataAccess.SplitData
                                 mon.GoldDrop = Convert.ToInt32(Data.GetValueForXML(xmlReader));
                                 break;
                             case ("ItemDrop"):
-                                List<Item> listItem = ItemData.GetAllItems();
+                                List<Item> listItem = Data.ItemData.GetAllItems();
                                 while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "ItemDrop")
                                 {
                                     if (xmlReader.NodeType != XmlNodeType.EndElement)

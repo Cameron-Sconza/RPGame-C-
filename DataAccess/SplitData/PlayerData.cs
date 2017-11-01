@@ -134,13 +134,13 @@ namespace DataAccess.SplitData
                                                 mercenary.MaxHealthPoints = Convert.ToDouble(Data.GetValueForXML(xmlReader));
                                                 break;
                                             case ("MainHand"):
-                                                mercenary.MainHand = ItemData.GetEquipment(Data.GetValueForXML(xmlReader));
+                                                mercenary.MainHand = Data.ItemData.GetEquipment(Data.GetValueForXML(xmlReader));
                                                 break;
                                             case ("OffHand"):
-                                                mercenary.OffHand = ItemData.GetEquipment(Data.GetValueForXML(xmlReader));
+                                                mercenary.OffHand = Data.ItemData.GetEquipment(Data.GetValueForXML(xmlReader));
                                                 break;
                                             case ("Armour"):
-                                                mercenary.Armour = ItemData.GetEquipment(Data.GetValueForXML(xmlReader));
+                                                mercenary.Armour = Data.ItemData.GetEquipment(Data.GetValueForXML(xmlReader));
                                                 break;
                                         }
                                     }
@@ -156,7 +156,7 @@ namespace DataAccess.SplitData
                                 }
                                 break;
                             case ("ItemBackpack"):
-                                List<Item> listItem = ItemData.GetAllItems();
+                                List<Item> listItem = Data.ItemData.GetAllItems();
                                 while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "ItemBackpack")
                                 {
                                     if (xmlReader.NodeType != XmlNodeType.EndElement)
@@ -167,7 +167,7 @@ namespace DataAccess.SplitData
                                 }
                                 break;
                             case ("EquipmentBackpack"):
-                                List<Equipment> listEquip = ItemData.GetAllEquipment();
+                                List<Equipment> listEquip = Data.ItemData.GetAllEquipment();
                                 while (xmlReader.NodeType != XmlNodeType.EndElement && xmlReader.Name == "EquipmentBackpack")
                                 {
                                     if (xmlReader.NodeType != XmlNodeType.EndElement)
