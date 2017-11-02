@@ -1,15 +1,15 @@
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.exe.config
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.exe
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.pdb
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\bin\Debug\AutoMapper.dll
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\bin\Debug\BusinessLogic.dll
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\bin\Debug\DataAccess.dll
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\bin\Debug\BusinessLogic.pdb
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\bin\Debug\DataAccess.pdb
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\bin\Debug\AutoMapper.xml
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\obj\Debug\RPGame C-sharp.csprojResolveAssemblyReference.cache
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\obj\Debug\RPGame C-sharp.csproj.CoreCompileInputs.cache
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\obj\Debug\RPGame C-sharp.exe
-C:\Users\Onshore\source\repos\RPGame C-sharp\RPGame C-sharp\obj\Debug\RPGame C-sharp.pdb
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.exe.config
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.exe
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.pdb
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.exe.CodeAnalysisLog.xml
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.exe.lastcodeanalysissucceeded
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\BusinessLogic.dll
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\DataAccess.dll
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\Library.dll
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\BusinessLogic.pdb
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\DataAccess.pdb
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\Library.pdb
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\obj\Debug\RPGame C-sharp.csprojResolveAssemblyReference.cache
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\obj\Debug\RPGame C-sharp.csproj.CoreCompileInputs.cache
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\obj\Debug\RPGame C-sharp.exe
+C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\obj\Debug\RPGame C-sharp.pdb
