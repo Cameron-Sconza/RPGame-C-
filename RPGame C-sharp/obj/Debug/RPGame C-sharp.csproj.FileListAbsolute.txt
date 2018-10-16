@@ -1,8 +1,6 @@
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.exe.config
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.exe
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.pdb
-C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.exe.CodeAnalysisLog.xml
-C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\RPGame C-sharp.exe.lastcodeanalysissucceeded
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\BusinessLogic.dll
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\DataAccess.dll
 C:\Users\Onshore\Documents\Visual Studio 2017\Projects\RPGame C-sharp\RPGame C-sharp\bin\Debug\Library.dll

@@ -4,21 +4,11 @@ namespace BusinessLogic
 {
     public class Logic
     {
-        public static CombatLogic CombatLogic { get; set; }
-        public static ItemLogic ItemLogic { get; set; }
-        public static PlayerLogic PlayerLogic { get; set; }
-        public static QuestLogic QuestLogic { get; set; }
-        public static RecipeLogic RecipeLogic { get; set; }
-        public static StatsLogic StatsLogic { get; set; }
-
-        public Logic()
-        {
-            CombatLogic = new CombatLogic();
-            ItemLogic = new ItemLogic();
-            PlayerLogic = new PlayerLogic();
-            QuestLogic = new QuestLogic();
-            RecipeLogic = new RecipeLogic();
-            StatsLogic = new StatsLogic();
-        }
+        public static CombatLogic CombatLogic = new CombatLogic();
+        public static ItemLogic ItemLogic = new ItemLogic();
+        public static PlayerLogic PlayerLogic = new PlayerLogic();
+        public static QuestLogic QuestLogic = new QuestLogic();
+        public static RecipeLogic RecipeLogic = new RecipeLogic();
+        public static StatsLogic StatsLogic = new StatsLogic();
     }
 }

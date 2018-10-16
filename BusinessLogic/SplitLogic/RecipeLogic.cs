@@ -9,6 +9,6 @@ namespace BusinessLogic.SplitLogic
 {
     public class RecipeLogic
     {
-        public static Data data = new Data();
+        //public static Data data = new Data();
     }
 }

@@ -1,9 +1,5 @@
 ﻿using Library.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPGame_C_sharp.SplitProgram
 {
@@ -33,7 +29,7 @@ namespace RPGame_C_sharp.SplitProgram
             return player;
         }
 
-        public   Player SellMenu(Player p)
+        public Player SellMenu(Player p)
         {
             Player player = p;
             bool isPlaying = true;
@@ -56,17 +52,17 @@ namespace RPGame_C_sharp.SplitProgram
             return player;
         }
 
-        public   Player SellEquipment(Player player)
+        public Player SellEquipment(Player player)
         {
             throw new NotImplementedException();
         }
 
-        public   Player SellItems(Player player)
+        public Player SellItems(Player player)
         {
             throw new NotImplementedException();
         }
 
-        public   Player BuyMenu(Player p)
+        public Player BuyMenu(Player p)
         {
             Player player = p;
             bool isPlaying = true;
@@ -89,12 +85,12 @@ namespace RPGame_C_sharp.SplitProgram
             return player;
         }
 
-        public   Player BuyEquipment(Player player)
+        public Player BuyEquipment(Player player)
         {
             throw new NotImplementedException();
         }
 
-        public   Player BuyItems(Player player)
+        public Player BuyItems(Player player)
         {
             throw new NotImplementedException();
         }

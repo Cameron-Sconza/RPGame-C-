@@ -12,8 +12,9 @@ namespace BusinessLogic.SplitLogic
 
         public Player LoadGame()
         {
+            string Test = Data.TestPath;
             Player Player = Data.PlayerData.LoadGame();
-            if (Player == null) { return null; }
+            if (Player == null) { return Player.Empty; }
             else { return Player; }
         }
 

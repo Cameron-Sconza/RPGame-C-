@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using Library.Models;
 using BusinessLogic;
 using System.Threading;
-using System.Linq;
 using RPGame_C_sharp.SplitProgram;
 
 namespace RPGame_C_sharp
@@ -14,7 +12,7 @@ namespace RPGame_C_sharp
         public static MercenaryProgram MercenaryProgram { get; set; }
         public static QuestingProgram QuestingProgram { get; set; }
         public static ShopProgram ShopProgram { get; set; }
-        
+
         public Program()
         {
             CraftingProgram = new CraftingProgram();
@@ -44,17 +42,17 @@ namespace RPGame_C_sharp
             } while (appIsRunning);
         }
 
-        private static void LoadGame()
+        static void LoadGame()
         {
             Player Player = Logic.PlayerLogic.LoadGame();
-            if (Player != null)
+            if (Player != Player.Empty)
             {
                 PlayGame(Player);
             }
-            else { Console.WriteLine("No Saved Data.\nReturning to Main Menu."); Thread.Sleep(1000); }
+            else { Console.WriteLine("No Saved Data.\nReturning to Main Menu.\nPlease Wait one Moment..."); Thread.Sleep(2000); }
         }
 
-        private static void NewGame()
+        static void NewGame()
         {
             Player player = new Player
             {
@@ -67,7 +65,7 @@ namespace RPGame_C_sharp
             PlayGame(player);
         }
 
-        private static void PlayGame(Player p)
+        static void PlayGame(Player p)
         {
             bool isPlaying = true;
             Player player = p;
@@ -95,7 +93,7 @@ namespace RPGame_C_sharp
                 }
             } while (isPlaying);
         }
-        
+
         public static string Prompt(string text)
         {
             Console.WriteLine(text);

@@ -3,14 +3,12 @@ using Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPGame_C_sharp.SplitProgram
 {
     class QuestingProgram
     {
-        public   Player Quest(Player p)
+        public Player Quest(Player p)
         {
             Player player = p;
             bool isPlaying = true;
@@ -32,28 +30,28 @@ namespace RPGame_C_sharp.SplitProgram
             return player;
         }
 
-        public   Player Tier(Player p, int tier)
+        public Player Tier(Player player, int tier)
         {
             List<Quest> list = Logic.QuestLogic.GetAllQuests().Where(q => q.Tier == tier).ToList();
             int count = list.Count;
-            Program.MercenaryProgram.ViewMerc(p);
+            Program.MercenaryProgram.ViewMerc(player);
             int choice = Program.BasicMenu("Which Quest Would You Like to Sent A Mercenary to Complete?\nOr Enter a Number Up to 3 Higher Then Shown to Leave.", count + 3);
             try
             {
                 Questing questing = Questing.Convert(list[choice - 1]);
-                questing.Mercenary = Program.MercenaryProgram.SelectMerc(p, "Please Select a Merc To Send On This Quest.");
+                questing.Mercenary = Program.MercenaryProgram.SelectMerc(player, "Please Select a Merc To Send On This Quest.");
                 if (questing.Mercenary == Mercenary.Empty)
                 {
-                    return p;
+                    return player;
                 }
                 else
                 {
-                    return Logic.CombatLogic.Questing(p, questing);
+                    return Logic.CombatLogic.Questing(player, questing);
                 }
             }
             catch (ArgumentOutOfRangeException)
             {
-                return p;
+                return player;
             }
         }
 
